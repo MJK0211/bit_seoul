@@ -19,10 +19,10 @@ model.add(Dense(1)) #계층간 hyper parameter tuning?
 model.compile(loss='mse', optimizer='adam', metrics=['accuracy'])
 #loss는 선과 데이터의 차이값이므로 최적의 loss값은 0이다. MSE(Mean Squared Error)는 손실함수이다. 우리는 손실을 최소화 하기위해 'mse'를 사용하고, optimizer(최적화)는 'adams'를 쓰겠다. acc'정확성
 
-model.fit(x, y, epochs=200, batch_size=2) #우리는 정제된 데이터로 이 모델을 훈련시키겠다. 'epochs' 100번 훈련시키겠다. 'batch_size' 한개씩 넣겠다.
+model.fit(x, y, epochs=100, batch_size=1) #우리는 정제된 데이터로 이 모델을 훈련시키겠다. 'epochs' 100번 훈련시키겠다. 'batch_size' 한개씩 넣겠다.
 
 #4. 평가, 예측
-loss, acc = model.evaluate(x, y, batch_size=2) #평가, 예측한 값을 반환시키기 위해
+loss, acc = model.evaluate(x, y, batch_size=1) #평가, 예측한 값을 반환시키기 위해
 
 y = model.predict(x)
 print("loss: ", loss)
