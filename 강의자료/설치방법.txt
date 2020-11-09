@@ -1,0 +1,35 @@
+1. 아나콘다 다운로드
+https://www.anaconda.com/products/individual - python3.8 64비트 다운
+
+2. Nvidia 그래픽 드라이버 최신버전 다운로드
+https://www.nvidia.co.kr/Download/index.aspx?lang=kr Rtx 2080 64비트
+
+3. Cuda 10.1 다운로드
+https://developer.nvidia.com/cuda-10.1-download-archive-update2
+​
+4. cudnn v7.6.5 for CUDA 10.1 다운로드 (회원가입 필수)
+https://developer.nvidia.com/rdp/cudnn-archive
+
+5. Visual Studio Code 다운로드
+​
+
+anaconda 설치 
+-> 체크 안되있는거 체크(자동으로 환경변수 설정)
+
+nvida 
+-> 첫번째 체크박스 그래픽관련만 설치
+cunda 설치 사용자정의 첫번재꺼 (+)클릭 -> Visualstudio 관련 체크해제​
+
+cundnn 압축해제 후 c - Programfiles - NVIDIA GPU Computing Toolkit-cunda-10.1에 덮어쓰기
+
+​cmd - conda env list 
+-> 콘다 가상환경 확인법
+
+​cmd - pip install tensorflow-gpu==2.3.0 (텐서플로우 설치) 
+-> cpu/gpu버전 두가지가 있는데 gpu를 사용하기위해 명시해줌(버전까지)
+-> pip list -> 텐서플로우 설치 확인
+
+
+python 실행 - import tensorflow as tf
+-> ImportError: DLL load failed while importing _pywrap_tensorflow_internal: 지정된 모듈을 찾을 수 없습니다.
+-> vc_redist.x64 설치로 해결
