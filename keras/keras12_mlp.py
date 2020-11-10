@@ -8,7 +8,10 @@ print(x)
 print(x.shape) #(3,100)
 
 # 과제(100,3)으로 바꿔보기
-x = x.T
+# x = x.T - [[1,711,0], [2,712,1] ...] 형태
+# print(x.shape) 
 
-print(x)
+x=x.reshape(100,3)
+
+print(x)  # [[1,2,3], [4,5,6] ...] 형태
 print(x.shape)
