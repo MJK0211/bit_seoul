@@ -6,3 +6,6 @@
 
 > 11/09
 > Tensorflow 설치 및 딥러닝 실습
+
+> 11/10
+> Keras metrics, train, RMSE, R2, split, mlp
