@@ -52,7 +52,6 @@ middle1 = Dense(3)(merge1)
 middle2 = Dense(7)(middle1)
 middle3 = Dense(11)(middle2) #layer마다 이름을 같게 해도 상관없다 가독성을 위해 1,2,3표기
 
-
 #output 모델 구성 (분기-나눔)
 output1 = Dense(3)(middle3)
 output1_1 = Dense(7)(output1)

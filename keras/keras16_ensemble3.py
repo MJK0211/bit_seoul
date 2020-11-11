@@ -15,8 +15,8 @@ x2 = np.transpose(x2)
 y1 = np.transpose(y1)
 
 from sklearn.model_selection import train_test_split
-x1_train, x1_test, x2_train, x2_test = train_test_split(x1, x2, train_size=0.7)
-y1_train, y1_test = train_test_split(y1, train_size=0.7)
+x1_train, x1_test, x2_train, x2_test = train_test_split(x1, x2, train_size=0.8)
+y1_train, y1_test = train_test_split(y1, train_size=0.8)
 
 
 #2. 모델구성
@@ -30,16 +30,16 @@ from tensorflow.keras.layers import Dense, Input, concatenate, Concatenate #conc
 
 #2_1 모델1
 input1 = Input(shape=(3,)) #input1 layer 구성
-dense1_1 = Dense(10, activation='relu', name='king1')(input1) #model.summary() dense부분에 가독성을 위해
-dense1_2 = Dense(7, activation='relu', name='king2')(dense1_1) 
-dense1_3 = Dense(5, activation='relu', name='king3')(dense1_2)
+dense1_1 = Dense(100, activation='relu', name='king1')(input1) #model.summary() dense부분에 가독성을 위해
+dense1_2 = Dense(30, activation='relu', name='king2')(dense1_1) 
+dense1_3 = Dense(7, activation='relu', name='king3')(dense1_2)
 output1 = Dense(3, name='king4')(dense1_3)
 
 #2_2 모델2
 input2 = Input(shape=(3,)) #input2 layer 구성
-dense2_1 = Dense(10, activation='relu')(input2) 
-dense2_2= Dense(7, activation='relu')(dense2_1) 
-dense2_3= Dense(5, activation='relu')(dense2_2)
+dense2_1 = Dense(100, activation='relu')(input2) 
+dense2_2= Dense(30, activation='relu')(dense2_1) 
+dense2_3= Dense(7, activation='relu')(dense2_2)
 output2 = Dense(3)(dense2_3)
 
 #모델 병합
@@ -47,7 +47,7 @@ output2 = Dense(3)(dense2_3)
 # merge1 = Concatenate(axis=1)([output1, output2]) #대문자 Concatenate, axis는 찾아서 정리한다
 merge1 = Concatenate()([output1, output2]) 
 
-middle1 = Dense(3)(merge1)
+middle1 = Dense(30)(merge1)
 middle2 = Dense(7)(middle1)
 middle3 = Dense(11)(middle2)
 
