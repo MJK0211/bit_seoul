@@ -16,8 +16,8 @@ y1 = np.transpose(y1)
 y2 = np.transpose(y2)
 
 from sklearn.model_selection import train_test_split
-x1_train, x1_test, y1_train, y1_test = train_test_split(x1, y1, train_size=0.7)
-x2_train, x2_test, y2_train, y2_test = train_test_split(x2, y2, train_size=0.7)
+x1_train, x1_test, x2_train, x2_test = train_test_split(x1, x2, train_size=0.7)
+y1_train, y1_test, y2_train, y2_test = train_test_split(y1, y2, train_size=0.7)
 
 
 #2. 모델구성
