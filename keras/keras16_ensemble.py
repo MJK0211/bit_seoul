@@ -1,17 +1,18 @@
+#Input 2개 Output 2개
+
 #1. 데이터
 import numpy as np
 
 x1 = np.array([range(1,101), range(711,811), range(100)]) #100개의 데이터 3개 - 100행 3열 input_shape (3,)
-y1 = np.array([range(101,201), range(311,411), range(100)]) #output 3
-
-x1 = np.transpose(x1)
-y1 = np.transpose(y1)
-
-
 x2 = np.array([range(4,104), range(761,861), range(100)]) 
+
+y1 = np.array([range(101,201), range(311,411), range(100)]) #output 3
 y2 = np.array([range(501,601), range(431,531), range(100,200)])
 
+x1 = np.transpose(x1)
 x2 = np.transpose(x2)
+
+y1 = np.transpose(y1)
 y2 = np.transpose(y2)
 
 from sklearn.model_selection import train_test_split

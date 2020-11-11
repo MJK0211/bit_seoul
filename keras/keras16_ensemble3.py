@@ -1,14 +1,17 @@
 #tran_test_split에서 추가하지 않는다 #r2 튠
+#Input 2개 Output 1개
 
 #1. 데이터
 import numpy as np
 
 x1 = np.array([range(1,101), range(711,811), range(100)]) #100개의 데이터 3개 - 100행 3열 input_shape (3,)
 x2 = np.array([range(4,104), range(761,861), range(100)]) 
-y1 = np.array([range(101,201), range(311,411), range(100)]) #output 3
+
+y1 = np.array([range(101,201), range(311,411), range(100)])
 
 x1 = np.transpose(x1)
 x2 = np.transpose(x2)
+
 y1 = np.transpose(y1)
 
 from sklearn.model_selection import train_test_split

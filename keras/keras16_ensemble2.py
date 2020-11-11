@@ -1,4 +1,5 @@
 #tran_test_split에서 추가하지 않는다
+#Input 2개 Output 3개
 
 #1. 데이터
 import numpy as np
@@ -11,13 +12,11 @@ y2 = np.array([range(501,601), range(431,531), range(100,200)])
 y3 = np.array([range(501,601), range(431,531), range(100,200)])
 
 x1 = np.transpose(x1)
-y1 = np.transpose(y1)
-
 x2 = np.transpose(x2)
+
+y1 = np.transpose(y1)
 y2 = np.transpose(y2)
-
 y3 = np.transpose(y3)
-
 
 from sklearn.model_selection import train_test_split
 x1_train, x1_test, y1_train, y1_test = train_test_split(x1, y1, train_size=0.7)

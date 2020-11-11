@@ -1,4 +1,5 @@
 #tran_test_split에서 추가하지 않는다
+#Input 1개 Output 3개
 
 #1. 데이터
 import numpy as np
@@ -10,6 +11,7 @@ y2 = np.array([range(501,601), range(431,531), range(100,200)])
 y3 = np.array([range(501,601), range(431,531), range(100,200)])
 
 x1 = np.transpose(x1)
+
 y1 = np.transpose(y1)
 y2 = np.transpose(y2)
 y3 = np.transpose(y3)
