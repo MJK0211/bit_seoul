@@ -27,7 +27,7 @@ model.add(Dense(1)) #y는 한개의 컬럼이기 때문에 output 1개
 
 #3. 컴파일, 훈련
 model.compile(loss='mse', optimizer='adam')
-model.fit(x, y, epochs=100, batch_size=1, validation_split=0.25, verbose=2) #verbose 중간에 실행과정을 생략할 수 있다.  0은 훈련과정생략(보여주는시간이 아깝기 때문에 사용)2
+model.fit(x_train, y_train, epochs=100, batch_size=1, validation_split=0.25, verbose=2) #verbose 중간에 실행과정을 생략할 수 있다.  0은 훈련과정생략(보여주는시간이 아깝기 때문에 사용)2
 
 #4. 평가, 예측
 loss = model.evaluate(x_train, y_train, batch_size=1)

@@ -28,7 +28,7 @@ model.add(Dense(1)) #y는 한개의 컬럼이기 때문에 output 1개
 
 #3. 컴파일, 훈련
 model.compile(loss='mse', optimizer='adam')
-model.fit(x, y, epochs=100, batch_size=1, validation_data=(x_val, y_val))
+model.fit(x_train, y_train, epochs=100, batch_size=1, validation_data=(x_val, y_val))
 
 #4. 평가, 예측
 loss = model.evaluate(x_train, y_train, batch_size=1)
