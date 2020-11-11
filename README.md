@@ -9,3 +9,6 @@
 
 > 11/10
 > Keras metrics, train, RMSE, R2, split, mlp
+
+> 11/11
+> mlp, shape, verbose, function, ensemble
