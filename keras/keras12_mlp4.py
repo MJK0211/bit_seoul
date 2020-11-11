@@ -1,35 +1,26 @@
+#실습 train_test_split을 행렬의 슬라이싱으로 바꿀것
+
 #1. 데이터
 import numpy as np
 
 x = np.array([range(1,101), range(711,811), range(100)]) #100개의 데이터 3개 - 100행 3열
 y = np.array([range(101,201), range(311,411), range(100)])
 
-print(x)
-print(x.shape) #(3,100)
-
-# 과제(100,3)으로 바꿔보기
-# x = x.T - [[1,711,0], [2,712,1] ...] 형태
-# x = x.transpose()
-# print(x.shape) 
-
-# x=x.reshape(100,3)
-# print(x)  # [[1,2,3], [4,5,6] ...] 형태
-# print(x.shape)
+# print(x)
+# print(x.shape) #(3,100)
 
 x = np.transpose(x)
 y = np.transpose(y)
 
-from sklearn.model_selection import train_test_split 
-x_org, x_test, y_org, y_test = train_test_split(x, y, train_size=0.7)
-x_train, x_val, y_train, y_val = train_test_split(x_org, y_org, train_size=0.6)
+#train_test_split 사용하지 않고 slicing 해서 사용하기
+x_train = x[:60]
+y_train = y[:60]
 
-print(x)
-print(x.shape) #(100,3) - 3가지특성의 데이터가 100개이다.
+x_val = x[60:80]
+y_val = y[60:80]
 
-#행무시 열우선 - 열은 column 컬럼별로 모델을 구성하게 된다.
-#특성, 피처, 컬럼, 열 - 열의 동일한 의미이다 
-
-#y1, y2, y3 = w1x1 + w2x2 + w3x3 + b
+x_test = x[80:100]
+y_test = y[80:100]
 
 #2. 모델구성
 from tensorflow.keras.models import Sequential #순차적모델
