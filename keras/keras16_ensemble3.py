@@ -51,11 +51,12 @@ middle3 = Dense(11)(middle2)
 #output 모델 구성 (분기-나눔)
 output1_1 = Dense(30)(middle3)
 output1_2 = Dense(13)(output1_1)
-output1_3 = Dense(3)(output1_2)
+output1_3 = Dense(7)(output1_2)
+output1_4 = Dense(3)(output1_3)
 
 
 #모델 정의
-model = Model(inputs=[input1, input2], outputs=output1_3)
+model = Model(inputs=[input1, input2], outputs=output1_4)
 
 #3. 컴파일,훈련
 
