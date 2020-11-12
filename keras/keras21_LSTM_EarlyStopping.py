@@ -22,14 +22,6 @@ print(y.shape)
 from tensorflow.keras.models import Sequential, Model
 from tensorflow.keras.layers import Dense, LSTM, Input
 
-# model = Sequential()
-# model.add(LSTM(60, activation='relu', input_length=3, input_dim=1)) # input_shape(3,1)과 같다
-# model.add(Dense(1250))
-# model.add(Dense(700))
-# model.add(Dense(150))
-# model.add(Dense(1))
-# model.summary()
-
 input1 = Input(shape=(3,1))
 lstm_layer = LSTM(200, activation='relu', name='lstm_layer')(input1)
 dense1 = Dense(180, activation='relu', name='dense1')(lstm_layer)

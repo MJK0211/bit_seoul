@@ -24,16 +24,18 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, LSTM 
 
 model = Sequential()
-model.add(LSTM(60, activation='relu', input_length=3, input_dim=1)) # input_shape(3,1)과 같다
-model.add(Dense(1250))
-model.add(Dense(700))
-model.add(Dense(150))
+model.add(LSTM(200, activation='relu', input_length=3, input_dim=1)) # input_shape(3,1)과 같다
+model.add(Dense(180, activation='relu'))
+model.add(Dense(150, activation='relu'))
+model.add(Dense(110, activation='relu'))
+model.add(Dense(60, activation='relu'))
+model.add(Dense(10, activation='relu'))
 model.add(Dense(1))
 model.summary()
 
 #3. 컴파일, 훈련
 model.compile(loss='mse', optimizer='adam')
-model.fit(x, y, epochs=100, batch_size=1, validation_split=0.25)
+model.fit(x, y, epochs=1000, batch_size=1)
 
 #4. 평가, 예측
 loss = model.evaluate(x, y, batch_size=1)
@@ -44,9 +46,16 @@ print("x_input : \n", x_input)
 print("y_pred : \n", y_pred)
 
 # 결과값
+# loss :  0.07138960808515549
 # x_input :
 #  [[[50]
 #   [60]
 #   [70]]]
 # y_pred :
-#  [[78.50971]]
+#  [[79.8668]]
+
+#         ㅣ         LSTM         ㅣ 
+# ---------------------------------
+#  80     ㅣ         79.86        ㅣ     
+#  loss   ㅣ        0.0713        ㅣ
+#  params ㅣ   161,600 / 248,821  ㅣ

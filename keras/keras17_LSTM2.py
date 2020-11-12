@@ -23,7 +23,7 @@ model.summary()
 
 #3. 컴파일, 훈련
 model.compile(loss='mse', optimizer='adam')
-model.fit(x, y, epochs=100, batch_size=1, validation_split=0.25)
+model.fit(x, y, epochs=100, batch_size=1)
 
 x_input = np.array([5,6,7]) # (3,) -> (1,3,1)
 x_input = x_input.reshape(1,3,1)
@@ -36,3 +36,7 @@ y_pred = model.predict(x_input)
 
 print("y_pred : \n", y_pred)
 
+# 결과값
+# loss :  0.007430584169924259
+# y_pred :
+#  [[8.007221]]

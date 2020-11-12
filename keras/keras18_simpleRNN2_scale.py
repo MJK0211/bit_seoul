@@ -21,16 +21,18 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, LSTM, SimpleRNN
 
 model = Sequential()
-model.add(SimpleRNN(60, activation='relu', input_length=3, input_dim=1)) # input_shape(3,1)과 같다
-model.add(Dense(1250))
-model.add(Dense(700))
-model.add(Dense(150))
+model.add(SimpleRNN(200, activation='relu', input_length=3, input_dim=1)) # input_shape(3,1)과 같다
+model.add(Dense(180, activation='relu'))
+model.add(Dense(150, activation='relu'))
+model.add(Dense(110, activation='relu'))
+model.add(Dense(60, activation='relu'))
+model.add(Dense(10, activation='relu'))
 model.add(Dense(1))
 model.summary()
 
 #3. 컴파일, 훈련
 model.compile(loss='mse', optimizer='adam')
-model.fit(x, y, epochs=100, batch_size=1, validation_split=0.25)
+model.fit(x, y, epochs=1000, batch_size=1)
 
 #4. 평가, 예측
 loss = model.evaluate(x, y, batch_size=1)
@@ -41,15 +43,16 @@ print("x_input : \n", x_input)
 print("y_pred : \n", y_pred)
 
 # 결과값
+# loss :  0.00266849878244102
 # x_input :
 #  [[[50]
 #   [60]
 #   [70]]]
 # y_pred :
-#  [[79.01222]]
+#  [[80.16329]]
 
 #         ㅣ         LSTM         ㅣ      SimpleRNN      ㅣ
 # --------------------------------------------------------
-#  80     ㅣ         78.5         ㅣ        79.01        ㅣ
-#  loss   ㅣ        0.0012        ㅣ        0.8945       ㅣ
-#  params ㅣ   14880 / 1,072,131  ㅣ   3720 / 1,060,971  ㅣ
+#  80     ㅣ         79.86        ㅣ        79.01        ㅣ
+#  loss   ㅣ        0.0713        ㅣ       0.0026        ㅣ
+#  params ㅣ   161,600 / 248,821  ㅣ   36,180 / 127,621  ㅣ
