@@ -1,4 +1,3 @@
-#LSTM완성
 #예측값 80 만들기
 
 import numpy as np  
