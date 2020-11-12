@@ -12,3 +12,6 @@
 
 > 11/11
 > mlp, shape, verbose, function, ensemble
+
+> 11/12
+> RNN, LSTM, simpleRNN, GRU, LSTM_function, LSTM_EarlyStopping, Return_sequences, LSTM_Dense, LSTM_ensemble
