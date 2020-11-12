@@ -38,7 +38,7 @@ model.summary()
 model.compile(loss='mse', optimizer='adam')
 
 from tensorflow.keras.callbacks import EarlyStopping #EarlyStopping 추가 - 조기종료
-early_stopping = EarlyStopping(monitor='loss', patience=100, mode='min') 
+early_stopping = EarlyStopping(monitor='loss', patience=150, mode='min') 
 
 model.fit(x, y, epochs=1000, batch_size=1, verbose=1, callbacks=[early_stopping])
 #4. 평가, 예측
@@ -50,10 +50,10 @@ print("x_input : \n", x_input)
 print("y_pred : \n", y_pred)
 
 # 결과값 
-# loss :  7.135950565338135
+# loss :  0.21558506786823273
 # x_input :
 #  [[[50]
 #   [60]
 #   [70]]]
 # y_pred :
-#  [[75.05443]]
+#  [[79.48231]]
