@@ -91,3 +91,8 @@ print("loss : ", loss)
 y_predict = model.predict(x_pred_minmax)
 print("y_predict : \n", y_predict)
 
+# 결과값
+# loss :  81165.265625
+# y_predict :
+#  [[8.222445]]
+# 너무 상이한 결과값이나옴.. 이유는 찾지 못함

@@ -18,7 +18,12 @@ history
 tensorboard
 -> cmd - d: - cd Study - cd bit_seoul - cd graph  - tensorboard --logdir=. enter 후 써져있는 url 접속
 
-#과제 - 다음 용어 정리하기
-#StandardScaler
-#RobustScaler
-#MaxAbsScaler
+1. 과제
+-> keras30_save.py 에서 구성한 모델을
+-> keras31_load.py에서 저장한 파일을 불러오고 input_shape를 바꿀 방법을 찾아봐라 input_shape(3,1) -> (4,1)로 변경
+-> Sequencial로만 생각하지 말고 함수형으로 해결하면 될 듯?
+
+2. 과제 
+-> StandardScaler
+-> RobustScaler
+-> MaxAbsScaler
