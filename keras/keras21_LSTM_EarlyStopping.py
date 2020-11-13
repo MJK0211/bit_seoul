@@ -37,13 +37,16 @@ model.compile(loss='mse', optimizer='adam')
 
 from tensorflow.keras.callbacks import EarlyStopping #EarlyStopping 추가 - 조기종료
 early_stopping = EarlyStopping(monitor='loss', patience=200, mode='min') 
-#patience 몇번까지 봐줄거냐? 바로 끝내기보다는 조금 더 지켜보고 최소값을 정하겠다. mode는 최소값
+#patience 인내심 - 몇번까지 봐줄거냐? 바로 끝내기보다는 조금 더 지켜보고 최소값을 정하겠다.
+#monitor는 여러개가 가능, 'loss', 'acc', 'val_loss' 등
+#mode는 최소값 'max', 'auto'가있음
 #최소값보다 내려가면 계속진행, 올라간다면 멈춤
 model.fit(x, y, epochs=10000, batch_size=1, verbose=1, callbacks=[early_stopping])
 
 #4. 평가, 예측
 loss = model.evaluate(x, y)
 y_pred = model.predict(x_input)
+
 
 print("loss : ", loss)
 print("x_input : \n", x_input)
