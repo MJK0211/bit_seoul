@@ -1,5 +1,7 @@
 #keras30_save.py 에서 구성한 모델을
 #keras31_load.py에서 저장한 파일을 불러오고 input_shape를 바꿀 방법을 찾아봐라 input_shape(3,1) -> (4,1)로 변경
+#Sequencial로만 생각하지 말고 함수형으로 해결하면 될 듯?
+#과제 완성시키기 11/13
 
 import numpy as np  
 from tensorflow.keras.models import load_model #load_model 추가!

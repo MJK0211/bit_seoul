@@ -11,3 +11,14 @@ CNN     4         (4,3,2,1) -> 가로, 세로, ccolor, 갯수
 서점에서 보면 안되는 책
 -> 개념기초, 수식??
 
+history
+-> history를 가지고 early_stopping에 대해서 세부적으로 확인하고 변경할 수 있다
+-> history는 데이터의 시각화이다
+
+tensorboard
+-> cmd - d: - cd Study - cd bit_seoul - cd graph  - tensorboard --logdir=. enter 후 써져있는 url 접속
+
+#과제 - 다음 용어 정리하기
+#StandardScaler
+#RobustScaler
+#MaxAbsScaler
