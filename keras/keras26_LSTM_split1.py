@@ -49,7 +49,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, LSTM 
 
 model = Sequential()
-model.add(LSTM(200, activation='relu', input_shape=(5,1)))
+model.add(LSTM(200, activation='relu', input_shape=(4,1)))
 model.add(Dense(180, activation='relu'))
 model.add(Dense(150, activation='relu'))
 model.add(Dense(110, activation='relu'))
@@ -57,7 +57,9 @@ model.add(Dense(60, activation='relu'))
 model.add(Dense(10, activation='relu'))
 model.add(Dense(1))
 model.summary()
+'''
 
+'''
 #3. 컴파일, 훈련
 model.compile(loss='mse', optimizer='adam')
 
