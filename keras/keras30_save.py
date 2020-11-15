@@ -18,7 +18,7 @@ input1 = Input(shape=(3,1))
 lstm_layer = LSTM(200, activation='relu', name='lstm_layer')(input1)
 output1 = Dense(1, name='output1')(lstm_layer) 
 model = Model(inputs = input1, outputs = output1) 
-print(model.layer[0])
+
 # dense1 = Dense(180, activation='relu', name='dense1')(lstm_layer)
 # dense2 = Dense(150, activation='relu', name='dense2')(dense1)
 # dense3 = Dense(110, activation='relu', name='dense3')(dense2)

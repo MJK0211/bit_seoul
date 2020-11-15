@@ -32,6 +32,7 @@ x_pred_minmax = scaler.transform(x_predict)
 # x_pred2_minmax = scaler.transform(x_predict2)
 
 # print(x_pred_minmax)
+print(x_minmax)
 print(x_pred_minmax)
 
 #x_predict : [[55 65 75]]
@@ -55,20 +56,20 @@ print(x_pred_minmax)
 #  [2.47561890e-02 3.96158463e-02 4.95247624e-02]] -> 전체 데이터는 0~1사이의 값으로 전처리 된것을 볼 수 있다
 
 
-x_minmax = x_minmax.reshape(x_minmax.shape[0], x_minmax.shape[1], 1)
-x_pred_minmax = x_pred_minmax.reshape(1,3,1) 
+# x_minmax = x_minmax.reshape(x_minmax.shape[0], x_minmax.shape[1], 1)
+# x_pred_minmax = x_pred_minmax.reshape(1,3) 
 # x_pred2_minmax = x_pred2_minmax.reshape(1,3,1) 
 
 
 from sklearn.model_selection import train_test_split
-x_train, x_test, y_train, y_test, = train_test_split(x_minmax, y, train_size=0.9, shuffle=False) 
+x_train, x_test, y_train, y_test, = train_test_split(x_minmax, y, train_size=0.8) 
 
 #2. 모델구성
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, LSTM 
 
 model = Sequential()
-model.add(LSTM(200, activation='relu', input_shape=(3,1)))
+model.add(Dense(200, activation='relu', input_shape=(3,)))
 model.add(Dense(180, activation='relu'))
 model.add(Dense(150, activation='relu'))
 model.add(Dense(110, activation='relu'))
@@ -78,11 +79,11 @@ model.add(Dense(1))
 model.summary()
 
 #3. 컴파일, 훈련
-model.compile(loss='mse', optimizer='adam')
+model.compile(loss='mse', optimizer='adam', metrics=['mae'])
 from tensorflow.keras.callbacks import EarlyStopping #EarlyStopping 추가 - 조기종료
-early_stopping = EarlyStopping(monitor='loss', patience=150, mode='min') 
+early_stopping = EarlyStopping(monitor='loss', patience=200, mode='min') 
 
-model.fit(x_train, y_train, epochs=1000, batch_size=1, verbose=1, callbacks=[early_stopping])
+model.fit(x_train, y_train, epochs=1000, batch_size=1, validation_split=0.25, verbose=1, callbacks=[early_stopping])
 
 #4. 평가, 예측
 loss = model.evaluate(x_test, y_test)
@@ -91,8 +92,14 @@ print("loss : ", loss)
 y_predict = model.predict(x_pred_minmax)
 print("y_predict : \n", y_predict)
 
+# LSTM으로 했을때
 # 결과값
 # loss :  81165.265625
 # y_predict :
 #  [[8.222445]]
 # 너무 상이한 결과값이나옴.. 이유는 찾지 못함
+
+# Sequencial Dense층으로만 구성, metrics 'mae', validation_split=0.25 추가
+# loss :  [14.905375480651855, 3.6674740314483643]
+# y_predict :
+#  [[81.92779]]
