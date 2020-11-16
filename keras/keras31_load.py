@@ -4,8 +4,8 @@
 #과제 완성시키기 11/13
 
 import numpy as np  
-from tensorflow.keras.models import load_model #load_model 추가!
-from tensorflow.keras.layers import Dense, LSTM
+from tensorflow.keras.models import Model, load_model #load_model 추가!
+from tensorflow.keras.layers import Dense, LSTM, Input, InputLayer, Layer
 
 #1. 데이터
 dataset = np.array(range(1,101))
@@ -35,12 +35,54 @@ x_train, x_test, y_train, y_test, = train_test_split(x, y, train_size=0.7)
 #2. 모델구성
 
 model = load_model("./save/keras28_1.h5")
+model.summary()
 
-# model.add(Dense(5 , name ='dense_5')) 
-# model.add(Dense(1 , name ='dense_6'))
-# model.summary()
+# Model: "functional_1"
+# _________________________________________________________________
+# Layer (type)                 Output Shape              Param #
+# =================================================================
+# input_1 (InputLayer)         [(None, 3, 1)]            0
+# _________________________________________________________________
+# lstm_layer (LSTM)            (None, 200)               161600
+# _________________________________________________________________
+# dense1 (Dense)               (None, 180)               36180
+# _________________________________________________________________
+# dense2 (Dense)               (None, 150)               27150
+# _________________________________________________________________
+# dense3 (Dense)               (None, 110)               16610
+# _________________________________________________________________
+# dense4 (Dense)               (None, 60)                6660
+# _________________________________________________________________
+# dense5 (Dense)               (None, 10)                610
+# _________________________________________________________________
+# output1 (Dense)              (None, 1)                 11
+# =================================================================
+# Total params: 248,821
+# Trainable params: 248,821
+# Non-trainable params: 0
+# _________________________________________________________________
 
-'''
+input1 = Input(shape=(4, 1))
+dense = model(input1)
+output1 = Dense(1)(dense)
+model = Model(inputs=input1, outputs=output1)
+model.summary()
+
+# Model: "functional_1"
+# _________________________________________________________________
+# Layer (type)                 Output Shape              Param #
+# =================================================================
+# input_1 (InputLayer)         [(None, 4, 1)]            0             -> Input Layer shape 변경
+# _________________________________________________________________
+# functional_1 (Functional)    (None, 1)                 248821        -> 저장된 모델의 parameter 총합이 나온다
+# _________________________________________________________________
+# dense (Dense)                (None, 1)                 2
+# =================================================================
+# Total params: 248,823
+# Trainable params: 248,823
+# Non-trainable params: 0
+# _________________________________________________________________
+
 #3. 컴파일, 훈련
 model.compile(loss='mse', optimizer='adam')
 
@@ -54,4 +96,9 @@ print("loss : ", loss)
 
 y_predict = model.predict(x_pred)
 print("y_predict : \n", y_predict)
-'''
+
+#결과값
+
+# loss :  0.001984312664717436
+# y_predict :
+#  [[100.90826]]
