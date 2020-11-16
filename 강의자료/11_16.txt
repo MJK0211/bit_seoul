@@ -89,3 +89,13 @@ Mnist
 One-Hot Encoding
 -> 원-핫 인코딩은 단어 집합의 크기를 벡터의 차원으로 하고, 표현하고 싶은 단어의 인덱스에 1의 값을 부여하고,
    다른 인덱스에는 0을 부여하는 단어의 벡터 표현 방식
+-> keras, sklearn 2가지가 있다
+-> keras - from tensorflow.keras.utils import to_categorycal
+-> sklearn - from sklearn.preprocessing import OneHotEncoder
+
+다중분류
+OneHotEncoding, model - activation='softmax', compile - loss='categorical_crossentropy'
+
+CNN, LSTM activation default
+-> CNN은 activation default = 'relu'이다 
+-> LSTM activation default ='tanh'이다 - 탄젠트
