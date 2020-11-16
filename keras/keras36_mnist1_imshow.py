@@ -1,4 +1,4 @@
-#Mnist
+#Mnist show plt
 
 import numpy as np
 import matplotlib.pyplot as plt

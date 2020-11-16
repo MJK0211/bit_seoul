@@ -48,39 +48,29 @@ model.add(Dense(10, activation='softmax'))
 model.summary()
 
 #3. 컴파일, 훈련
-model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc']) # mse - 'mean_squared_error' 가능
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc']) #mse - 'mean_squared_error' 가능 
+#다중분류에서는 categorical_crossentropy를 사용한다!
 
 from tensorflow.keras.callbacks import EarlyStopping, TensorBoard
 early_stopping = EarlyStopping(monitor='loss', patience=10, mode='min') 
 to_hist = TensorBoard(log_dir='graph', histogram_freq=0, write_graph=True, write_images=True) 
-model.fit(x_train, y_train, epochs=1, batch_size=32, verbose=1, validation_split=0.2, callbacks=[early_stopping])
+model.fit(x_train, y_train, epochs=10, batch_size=32, verbose=1, validation_split=0.2, callbacks=[early_stopping])
 
 #4. 평가, 예측
 loss, acc = model.evaluate(x_test, y_test, batch_size=32)
 print("loss : ", loss)
 print("acc : ", acc)
 
-print(x_predict)
 y_pred = model.predict(x_predict)
-y_pred = np.argmax(y_pred, axis=1).reshape(-1,1)
+y_pred = np.argmax(y_pred, axis=1) #OneHotEncoding -> 디코딩하는 문장, axis=0-열, axis=1-행, 즉 y_pred값 안의 행에서 최대값을 가진 곳의 index값을 추출하겠다
 print("y_col : ", y_col)
 print("y_pred : ", y_pred)
-
-# 결과값
-# loss :  0.0910315066576004
-# acc :  0.9884999990463257
 
 #실습1. test데이터를 10개 가져와서 predict 만들것    
 #실습2. 모델: early_stopping 적용, tensorboard 추가
 
+# 결과값
+# loss :  0.06548123806715012
+# acc :  0.9853000044822693
 # y_col :  [7 2 1 0 4 1 4 9 5 9]
-# y_pred :  [[7]
-#  [2]
-#  [1]
-#  [0]
-#  [4]
-#  [1]
-#  [4]
-#  [9]
-#  [5]
-#  [9]]
+# y_pred :  [7 2 1 0 4 1 4 9 5 9]
