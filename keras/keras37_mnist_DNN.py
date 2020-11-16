@@ -51,8 +51,8 @@ loss, acc = model.evaluate(x_test, y_test, batch_size=32)
 print("loss : ", loss)
 print("acc : ", acc)
 
-y_pred = model.predict(x_predict)
-y_pred = np.argmax(y_pred, axis=1)
+y_pred = model.predict_classes(x_predict) # np.argmax로 변환하지 않아도 같은 값으로 출력이 가능하다
+#y_pred = np.argmax(y_pred, axis=1)
 print("y_col : ", y_col)
 print("y_pred : ", y_pred)
 

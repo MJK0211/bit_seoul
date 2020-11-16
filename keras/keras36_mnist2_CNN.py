@@ -1,4 +1,6 @@
 #OneHotEncodeing
+#실습1. test데이터를 10개 가져와서 predict 만들것    
+#실습2. 모델: early_stopping 적용, tensorboard 추가
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -66,8 +68,6 @@ y_pred = np.argmax(y_pred, axis=1) #OneHotEncoding -> 디코딩하는 문장, ax
 print("y_col : ", y_col)
 print("y_pred : ", y_pred)
 
-#실습1. test데이터를 10개 가져와서 predict 만들것    
-#실습2. 모델: early_stopping 적용, tensorboard 추가
 
 # 결과값
 # loss :  0.06548123806715012
