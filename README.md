@@ -18,3 +18,6 @@
 
 > 11/13
 > Data_split, LSTM_split, Dense_split, Model_save, Model_load, history, history_graph, tesorboard, MinMaxScaler
+
+> 11/16
+> CNN, CNN_maxpooling, mnist, mnist_plt_show, mnist_CNN, mnist_DNN
