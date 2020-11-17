@@ -49,9 +49,9 @@ model.summary()
 #3. 컴파일, 훈련
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
 from tensorflow.keras.callbacks import EarlyStopping, TensorBoard
-early_stopping = EarlyStopping(monitor='loss', patience=5, mode='min') 
+early_stopping = EarlyStopping(monitor='loss', patience=8, mode='min') 
 #to_hist = TensorBoard(log_dir='graph', histogram_freq=0, write_graph=True, write_images=True) 
-model.fit(x_train, y_train, epochs=30, batch_size=32, verbose=1, validation_split=0.2, callbacks=[early_stopping])
+model.fit(x_train, y_train, epochs=50, batch_size=32, verbose=1, validation_split=0.2, callbacks=[early_stopping])
 
 #4. 평가, 예측
 loss, acc = model.evaluate(x_test, y_test, batch_size=32)
