@@ -1,4 +1,4 @@
-#DNN - load_boston
+#load-boston - DNN
 
 import numpy as np
 

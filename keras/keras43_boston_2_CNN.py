@@ -1,4 +1,4 @@
-#DNN - load_boston
+#load-boston - CNN
 
 import numpy as np
 

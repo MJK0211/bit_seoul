@@ -1,4 +1,4 @@
-#DNN - load_boston
+#load-boston - LSTM
 
 import numpy as np
 
@@ -33,7 +33,6 @@ from sklearn.preprocessing import MinMaxScaler, StandardScaler #데이터 전처
 scaler = StandardScaler()
 scaler.fit(x)
 x_standard = scaler.transform(x) 
-
 x_standard = x_standard.reshape(506,13,1)
 
 from sklearn.model_selection import train_test_split

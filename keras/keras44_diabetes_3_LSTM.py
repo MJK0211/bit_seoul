@@ -1,4 +1,4 @@
-#DNN - load_boston
+#load-diabetes - LSTM
 
 import numpy as np
 
