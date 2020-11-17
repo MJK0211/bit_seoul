@@ -52,3 +52,17 @@ small mammals	                hamster, mouse, rabbit, shrew, squirrel
 trees	                        maple, oak, palm, pine, willow
 vehicles 1	                    bicycle, bus, motorcycle, pickup truck, train
 vehicles 2	                    lawn-mower, rocket, streetcar, tank, tractor
+
+데이터 전처리를 우선!, 그 다음으로는 하이퍼 파라미터 튜닝!
+
+Dropout
+-> 기본 히든 layer에서 원래 있던 layer는 건들지 않고 layer하단에 dropout을 명시해주면 
+-> 그 레이어노드를 일정 비율만큼 제외하고 처리한다
+-> 연산이 빨리지고 성능이 좋아진다
+-> 무조건적으로 좋아지는 것은 아니다
+-> 과적합도 잡아준다
+
+acc 와 val_acc 차이가 크지 않은 것이 좋은 모델이다
+회귀모델에서는 acc 는 사용하지 않는다 loss!
+
+feature importance 알아보기

@@ -43,6 +43,11 @@ def RMSE(y_test, y_pred): #x_test를 통해 predict에서 나온 y_pred와 y_tes
 
 print("RMSE : ", RMSE(y_test, y_pred))
 
+print(y_test)
+print(y_test.shape)
+print(y_pred)
+print(y_pred.shape)
+
 # 결과값
 # loss:  0.0003821266000159085
 # result :
