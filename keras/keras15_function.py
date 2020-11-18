@@ -84,9 +84,9 @@ y_pred = model.predict(x_test)
 print("y_test : \n", y_test)
 print("y_pred : \n", y_pred)
 
-from sklearn.metrics import mean_absolute_error
+from sklearn.metrics import mean_squared_error
 def RMSE(y_test, y_pred):
-    return np.sqrt(mean_absolute_error(y_test, y_pred))
+    return np.sqrt(mean_squared_error(y_test, y_pred))
 print("RMSE : ", RMSE(y_test, y_pred))
 
 from sklearn.metrics import r2_score
