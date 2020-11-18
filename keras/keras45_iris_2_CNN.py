@@ -13,76 +13,79 @@ from sklearn.datasets import load_iris #load_iris 꽃 확인
 #     2    - petal length in cm    꽃잎 길이(Petal Length)
 #     3    - petal width in cm     꽃잎 폭(Petal Width)
 #     4     - class:               setosa, versicolor, virginica의 세가지 붓꽃 종(species)
-                # - Iris-Setosa 
-                # - Iris-Versicolour
-                # - Iris-Virginica
+                # 0 - Iris-Setosa     
+                # 1 - Iris-Versicolour
+                # 2 - Iris-Virginica
 
 dataset = load_iris()
 x = dataset.data #(150,4)
 y = dataset.target #(150,)
 #x의 데이터로 세가지 붓꽃 종 중 하나를 찾는 데이터셋이다
 
-print(x.shape)
-print(y.shape)
-
-from sklearn.preprocessing import MinMaxScaler, StandardScaler
-scaler = StandardScaler()
-scaler.fit(x)
-x_standard = scaler.transform(x) 
-x_standard = x_standard.reshape(150,2,2,1)
+print(x.shape) #(150, 4)
 
 from sklearn.model_selection import train_test_split
-x_train, x_test, y_train, y_test, = train_test_split(x_standard, y, train_size=0.8) 
+x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8) 
+x_pred = x_test[:10]
+x_test = x_test[10:]
+y_real = y_test[:10]
+y_test = y_test[10:]
+
+print(x_test.shape) #(20, 4)
+print(y_test.shape) #(20,)
+print(x_train.shape) #(120,4)
+
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
+scaler = MinMaxScaler()
+scaler.fit(x_train)
+x_train_minmax = scaler.transform(x_train) 
+x_test_minmax = scaler.transform(x_test)
+x_pred_minmax = scaler.transform(x_pred)
+
+x_train_minmax = x_train_minmax.reshape(120,4,1,1)
+x_test_minmax = x_test_minmax.reshape(20,4,1,1)
+x_pred_minmax = x_pred.reshape(10,4,1,1)
+
+from tensorflow.keras.utils import to_categorical
+y_train = to_categorical(y_train)
+y_test = to_categorical(y_test)
 
 #2. 모델 구성
 model = Sequential()
-model.add(Conv2D(10, (5,2), padding='same', input_shape=(2,2,1)))
+model.add(Conv2D(32, (2, 2), padding='same', activation='relu', input_shape=(4, 1, 1))) #padding 주의!
 model.add(Dropout(0.2))
-model.add(Conv2D(20, (2,2), padding='same')) 
+model.add(Conv2D(64, (3, 3), padding='same', activation='relu'))
 model.add(Dropout(0.2))
-model.add(Conv2D(30, (2,2), padding='same'))
+model.add(Conv2D(256, (2, 2), padding='same', activation='relu'))
 model.add(Dropout(0.2))
-model.add(MaxPooling2D(pool_size=2)) 
-model.add(Dropout(0.2))
-model.add(Flatten()) 
-model.add(Dropout(0.2))
-model.add(Dense(100, activation='relu'))
-model.add(Dropout(0.2))
-model.add(Dense(1, activation='softmax')) 
+# model.add(MaxPooling2D(pool_size=2))
+# model.add(Dropout(0.2))
+model.add(Flatten())
+model.add(Dense(128, activation='relu'))
+model.add(Dense(3, activation='softmax')) 
 model.summary()
 
 #3. 컴파일, 훈련
-model.compile(loss='mse', optimizer='adam')
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
 from tensorflow.keras.callbacks import EarlyStopping 
-early_stopping = EarlyStopping(monitor='loss', patience=5, mode='min') 
+early_stopping = EarlyStopping(monitor='val_loss', patience=100, mode='min') 
 
-model.fit(x_train, y_train, epochs=100, batch_size=1, validation_split=0.25, verbose=1, callbacks=[early_stopping])
+model.fit(x_train_minmax, y_train, epochs=1000, batch_size=32, validation_split=0.25, verbose=1, callbacks=[early_stopping])
 
 #4. 평가, 예측
-loss = model.evaluate(x_test, y_test)
+loss, acc = model.evaluate(x_test_minmax, y_test, batch_size=32)
 print("loss : ", loss)
+print("acc : ", acc)
 
-y_predict = model.predict(x_test)
+y_predict = model.predict(x_pred_minmax)
+y_predict = np.argmax(y_predict, axis=1)
 
-#print(y_predict.shape) #(30, 1)
-
-print("y_test : ", y_test)
-print("y_predict : \n", y_predict.reshape(30,))
-
-from sklearn.metrics import mean_squared_error, r2_score
-
-def RMSE(y_test, y_predict):
-    return np.sqrt(mean_squared_error(y_test, y_predict))
-print("RMSE : ", RMSE(y_test, y_predict))
-
-r2 = r2_score(y_test, y_predict)
-print("R2 : ", r2)
+print("y_real : ", y_real)
+print("y_predict : \n", y_predict)
 
 # 결과값
-# loss :  0.6666666865348816
-# y_test :  [0 1 2 0 1 0 0 2 2 0 1 1 2 2 0 0 0 2 1 1 1 2 0 1 0 1 0 0 1 0]
+# loss :  0.16634956002235413
+# acc :  0.949999988079071
+# y_real :  [2 1 1 2 1 2 2 2 1 0]
 # y_predict :
-#  [1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1.
-#  1. 1. 1. 1. 1. 1.]
-# RMSE :  0.816496580927726
-# R2 :  -0.06382978723404231
+#  [2 1 1 2 1 2 2 2 2 1]

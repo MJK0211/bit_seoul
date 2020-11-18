@@ -57,7 +57,7 @@ model.add(Flatten())
 model.add(Dropout(0.2))
 model.add(Dense(100, activation='relu'))
 model.add(Dropout(0.2))
-model.add(Dense(1, activation='softmax')) 
+model.add(Dense(1))
 model.summary()
 
 #3. 컴파일, 훈련

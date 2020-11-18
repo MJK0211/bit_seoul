@@ -28,14 +28,14 @@ x = dataset.data #(506,13), 인덱스 0~12의 값
 y = dataset.target #(506,), 인덱스 13의 값 - 소유주가 거주하는 주택의 가치 (단위 : $ 1000)
 #x의 데이터로 본인의 주택의 가치를 평가하는 데이터 셋이다.
 
-from sklearn.preprocessing import MinMaxScaler, StandardScaler #데이터 전처리 StandardScaler 추가
-
-scaler = StandardScaler()
-scaler.fit(x)
-x_standard = scaler.transform(x) 
-
 from sklearn.model_selection import train_test_split
-x_train, x_test, y_train, y_test, = train_test_split(x_standard, y, train_size=0.8) 
+x_train, x_test, y_train, y_test, = train_test_split(x, y, train_size=0.8) 
+
+from sklearn.preprocessing import MinMaxScaler, StandardScaler #데이터 전처리 StandardScaler 추가
+scaler = StandardScaler()
+scaler.fit(x_train)
+x_train_standard = scaler.transform(x_train) 
+x_test_standard = scaler.transform(x_test)
 
 #2. 모델 구성
 model = Sequential()
@@ -57,56 +57,45 @@ model.summary()
 #3. 컴파일, 훈련
 model.compile(loss='mse', optimizer='adam')
 from tensorflow.keras.callbacks import EarlyStopping #EarlyStopping 추가 - 조기종료
-early_stopping = EarlyStopping(monitor='loss', patience=100, mode='min') 
+early_stopping = EarlyStopping(monitor='val_loss', patience=30, mode='min') 
 
-model.fit(x_train, y_train, epochs=1000, batch_size=1, validation_split=0.25, verbose=1, callbacks=[early_stopping])
+model.fit(x_train_standard, y_train, epochs=500, batch_size=1, validation_split=0.25, verbose=1, callbacks=[early_stopping])
 
 #4. 평가, 예측
-loss = model.evaluate(x_test, y_test)
+loss = model.evaluate(x_test_standard, y_test)
 print("loss : ", loss)
 
-y_predict = model.predict(x_test)
+y_predict = model.predict(x_test_standard)
 print("y_test : ", y_test)
-print("y_predict : \n", y_predict.reshape(102,))
+print("y_predict : \n", np.round(y_predict.reshape(102,),1))
 
 from sklearn.metrics import mean_squared_error, r2_score
 
 def RMSE(y_test, y_predict):
     return np.sqrt(mean_squared_error(y_test, y_predict))
 print("RMSE : ", RMSE(y_test, y_predict))
-
+ 
 r2 = r2_score(y_test, y_predict)
 print("R2 : ", r2)
 
 # 결과값
-# loss :  9.415366172790527
-# y_test :  [10.9 22.5 35.1 14.9 31.1 23.4 18.9 29.1  7.4 26.5 30.5 24.1 18.3 13.4
-#  19.4 23.8 50.  13.1 33.3 18.  17.4 33.1 20.  11.9 20.1 22.9 20.9 20.6
-#  23.8 18.5 24.  13.6 19.5 19.1 19.8 24.5 23.8 24.3 21.5 20.1 13.5 21.7
-#  24.4 24.8 13.8 12.8 19.6 17.4 24.1 22.8 48.5 22.9 26.7 18.7 23.1 22.2
-#  23.1 50.  22.7 25.  18.6 24.8 26.6  5.  22.8 15.6 20.8 20.7 21.7 22.9
-#  20.  22.8 16.5 13.1 17.8  8.4 23.  33.4 50.  13.8 13.8 31.7 20.6 25.
-#  12.7 16.3 19.  15.7 17.2  7.  32.5 35.2 24.4 20.3 24.4 22.6 21.1 20.6
-#  29.6 19.5 20.3 30.3]
-
+# loss :  16.358922958374023
+# y_test :  [21.1 22.6 13.8 27.1 16.2 13.1  7.  18.6 21.  24.4 10.5 23.7 33.2 23.3
+#  19.  26.7 22.  29.1 20.  27.5 19.6 37.2 25.  19.7 28.2 26.5 14.6 43.1
+#  19.6 12.7 29.6 34.9  8.8 33.2 19.7 16.8 20.4 17.8 13.4 15.7 33.4  5.
+#  17.7 25.  13.9 20.6 24.   6.3 24.1 28.4 21.2 21.4 20.  16.6 23.1 27.5
+#  12.3 20.  50.  16.8 36.2  5.6 17.6 22.4 17.1 33.8  8.5 30.3 19.9 15.1
+#  10.4 35.4 20.1 17.5 35.1 19.3  9.5 24.3 19.4 16.3 23.  24.6 24.1 21.2
+#  19.4 10.8 27.9 37.9  7.4 20.4 18.7 13.8 32.7 13.9 15.4 17.9 22.6 14.
+#  32.5  9.6 16.7 50. ]
 # y_predict :
-#  [13.149729  21.623878  33.030907  15.798201  32.27707   23.758835
-#  22.248951  30.13409   12.992464  22.191402  31.234867  23.803925
-#  19.192604  14.345945  21.425932  22.733347  41.763107  15.11353
-#  39.956196  18.341936  19.678875  31.14925   19.957111  19.29367
-#  22.039549  23.67741   20.393127  21.142185  22.735058  20.22613
-#  22.093641  16.864801  18.63184   15.775607  21.45173   22.604914
-#  22.201584  22.589823  21.523642  19.498709  14.328426  22.520054
-#  22.978241  24.14636   15.721636  13.505299  21.417088  19.450127
-#  24.342312  23.54948   41.008186  27.342808  26.589489  19.482231
-#  25.173264  23.673456  19.313599  42.79924   20.705215  23.470596
-#  20.66753   29.861841  30.446106  11.597537  22.58917   15.409453
-#  22.966223  23.169085  21.179672  22.609379  19.643084  22.902721
-#  22.201591  12.122576  15.186605  13.468273  19.068995  32.27111
-#  41.677097  20.20874   14.6986065 33.665092  22.13418   21.65481
-#  14.8622265 14.885566  20.355463  16.81305   15.071589  13.523801
-#  29.64832   27.894169  22.939196  19.6899    27.729279  22.654165
-#  22.520384  22.343075  31.65964   19.880154  20.120901  35.50786  ]
-
-# RMSE :  1.4995469693232195
-# R2 :  0.8585726327076172
+#  [21.4 22.3  9.8 17.8 20.  10.8 13.6 15.2 20.3 24.2 10.7 25.8 33.7 24.5
+#  13.4 27.1 20.8 27.8 21.7 18.9 21.9 32.6 28.4 18.5 30.8 24.9 13.1 35.2
+#  18.3 14.8 26.6 32.5  9.2 32.5 21.3 18.3 20.8 19.5 13.1 17.8 31.2  8.8
+#  18.2 20.5 12.6 21.5 22.6 12.7 22.3 31.5 21.3 20.6 21.6 20.5 14.1 27.3
+#  12.9 21.1 40.2 20.7 33.3 10.1 18.8 21.5 20.8 31.9 14.3 29.5 19.5 15.1
+#   9.4 32.8 21.4 20.1 31.8 21.3 12.5 21.4 20.7 11.9 19.2 23.3 23.8 22.2
+#  20.6 12.  17.7 29.   9.8 21.4 19.6 17.3 31.7 15.5 15.9 10.6 22.5 15.
+#  24.6 12.3 17.  29.7]
+# RMSE :  4.0446163879486665
+# R2 :  0.7903853746852583

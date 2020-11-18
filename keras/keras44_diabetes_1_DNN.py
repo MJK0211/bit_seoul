@@ -25,14 +25,14 @@ x = dataset.data #(442,10), 인덱스 0~9의 값
 y = dataset.target #(442,), 인덱스 10의 값- 1년 후 당뇨병 진행의 측정
 #x의 데이터로 1년 후 당뇨병 진행을 측정하는 데이터셋이다.
 
-from sklearn.preprocessing import MinMaxScaler, StandardScaler
-
-scaler = StandardScaler()
-scaler.fit(x)
-x_standard = scaler.transform(x) 
-
 from sklearn.model_selection import train_test_split
-x_train, x_test, y_train, y_test, = train_test_split(x_standard, y, train_size=0.8) 
+x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8) 
+
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
+scaler = MinMaxScaler()
+scaler.fit(x_train)
+x_train_standard = scaler.transform(x_train) 
+x_test_standard = scaler.transform(x_test)
 
 #2. 모델 구성
 model = Sequential()
@@ -54,20 +54,20 @@ model.summary()
 #3. 컴파일, 훈련
 model.compile(loss='mse', optimizer='adam')
 from tensorflow.keras.callbacks import EarlyStopping #EarlyStopping 추가 - 조기종료
-early_stopping = EarlyStopping(monitor='loss', patience=100, mode='min') 
+early_stopping = EarlyStopping(monitor='val_loss', patience=20, mode='min') 
 
-model.fit(x_train, y_train, epochs=1000, batch_size=1, validation_split=0.25, verbose=1, callbacks=[early_stopping])
+model.fit(x_train_standard, y_train, epochs=500, batch_size=1, validation_split=0.25, verbose=1, callbacks=[early_stopping])
 
 #4. 평가, 예측
-loss = model.evaluate(x_test, y_test)
+loss = model.evaluate(x_test_standard, y_test)
 print("loss : ", loss)
 
-y_predict = model.predict(x_test)
+y_predict = model.predict(x_test_standard)
 
 #print(y_predict.shape) #(89, 1)
 
 print("y_test : ", y_test)
-print("y_predict : \n", y_predict.reshape(89,))
+print("y_predict : \n", np.round(y_predict.reshape(89,),1))
 
 from sklearn.metrics import mean_squared_error, r2_score
 
@@ -79,29 +79,22 @@ r2 = r2_score(y_test, y_predict)
 print("R2 : ", r2)
 
 # 결과값
-# loss :  4908.92626953125
-# y_test :  [258. 131. 292.  47. 297. 104. 104. 200. 104. 212.  66. 118.  78. 283.
-#  275.  72. 111. 182.  74.  81. 308.  97. 135. 124. 152. 259. 341. 139.
-#  137.  92. 310. 107. 150. 179.  90. 225.  60. 113. 200. 167. 249.  78.
-#  273.  37. 233. 181. 206. 111. 137. 258. 202. 281.  55. 263. 153. 257.
-#  178. 160. 270.  58. 292. 229.  54. 265. 101. 258. 115. 102. 217. 123.
-#  268. 107. 103. 129.  61. 110. 222. 127. 233. 281. 146. 288. 121. 275.
-#  202. 230.  99.  53.  60.]
+# loss :  4575.6328125
+# y_test :  [ 42. 198. 221.  80. 261.  48. 153.  94.  87. 283. 136. 115. 310. 175.
+#   37. 258. 184.  94. 210.  42. 113. 102. 258.  93.  78. 259. 145. 229.
+#  150. 152.  70.  96. 182. 222.  59.  65.  92. 249.  51. 164. 310. 303.
+#  280.  69.  52. 217. 259.  48. 191. 150. 179. 235. 197. 275.  51. 170.
+#  109.  53. 346. 277.  72. 259. 257. 275.  49. 104. 297.  40.  85. 262.
+#  219. 189.  47. 131. 217.  90.  84. 128. 127.  57. 321. 107. 135.  61.
+#  191. 214.  90.  59. 292.]
 # y_predict :
-#  [251.05566  161.29413   77.35864   55.151123 249.9555    76.88692
-#   97.36992  209.36716  142.95473  192.20685  189.7864   122.370926
-#  102.62993  138.29611  242.25018   69.47027   69.55275  152.04189
-#  128.89838  223.09802  242.5506   147.38083   51.515324 125.15905
-#  135.60971  105.3929   249.36493  145.36243  168.06769   85.3889
-#   57.175556  88.236664 159.22745  121.5773   136.77097  121.48695
-#   67.38202  181.99765  170.63815  149.3021   172.66138   86.00252
-#  181.37674   89.12468  250.13168   59.02523  186.71759  166.96518
-#  105.55473  101.094894 198.68845  213.94235   60.108456 234.69678
-#   78.142365  82.60757  175.88754  144.04678  221.80496   69.37135
-#  231.85452  202.54068   83.06164  113.95727  167.46283  186.86237
-#  139.20865   72.64992  213.78976  229.66864  239.93405  206.12683
-#  196.0975   136.83707  102.176056 139.09329  222.06647  157.28674
-#  214.53989  234.16577  153.65654  243.81     125.64203  238.51727
-#  188.84872  179.76187  115.95705   50.45632   65.799225]
-# RMSE :  6.977591536575327
-# R2 :  0.2486338309611087
+#  [109.9 137.6 160.2  83.8 186.6 146.5  82.1 140.8  77.2 163.9 117.   95.1
+#  164.7 150.7  62.6 181.1 133.3  77.  111.7  75.7 119.6 105.5 236.6  65.4
+#  144.  190.1 119.  152.8 182.5  98.6  55.3  61.2 102.6 168.8 105.2  43.6
+#   60.1 152.1 105.4 129.4 236.4 214.3 184.2 103.2  62.6 199.4 197.7  61.6
+#   81.  122.8  76.7 141.9 170.8 198.2  92.1  66.  112.6  58.9 214.4 169.5
+#   68.5 136.1 164.5 164.4  81.2  63.8 186.7 117.9  84.3 120.7  98.3 156.5
+#   90.6 141.6 153.3 112.8 157.5  66.1  88.4  61.7 215.5 101.1  89.6 100.3
+#  147.  105.2  95.3  66.7 146.8]
+# RMSE :  67.6434253494797
+# R2 :  0.3918271111252529

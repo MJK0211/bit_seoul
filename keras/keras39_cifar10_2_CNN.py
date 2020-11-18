@@ -14,7 +14,13 @@ from tensorflow.keras.utils import to_categorical
 (x_train, y_train), (x_test, y_test) = cifar10.load_data()
 
 x_predict = x_test[:10]
-y_col = y_test[:10]
+x_test = x_test[10:]
+y_real = y_test[:10]
+y_test = y_test[10:]
+
+print(x_train.shape) #(50000, 32, 32, 3)
+print(x_test.shape) #(9990, 32, 32, 3)
+print(y_test.shape) #(9990, 1)
 
 #1_1. 데이터 전처리 - OneHotEncoding
 
@@ -27,22 +33,21 @@ x_predict = x_predict.astype('float32')/255
 
 #2. 모델구성 
 model = Sequential()
-model.add(Conv2D(60, (2,2), padding='same', input_shape=(32,32,3))) 
-model.add(Conv2D(50, (2,2), padding='same'))
-model.add(Conv2D(40, (3,3), padding='same'))
-model.add(Conv2D(30, (2,2), strides=2))
-model.add(MaxPooling2D(pool_size=2)) 
+model.add(Conv2D(10, (2,2), padding='same', input_shape=(32,32,3))) #(32,32,10)
+model.add(Conv2D(20, (2,2), padding='same')) #(32,32,20)
+model.add(Conv2D(30, (3,3), padding='same')) #(32,32,30)
+model.add(Conv2D(40, (2,2), strides=2)) #(16,16,40)
+model.add(MaxPooling2D(pool_size=2)) #(8,8,40)
 model.add(Flatten()) 
-model.add(Dense(20, activation='relu'))
+model.add(Dense(100, activation='relu'))
 model.add(Dense(10, activation='softmax')) 
 model.summary()
 
 #3. 컴파일, 훈련
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc']) 
 
-from tensorflow.keras.callbacks import EarlyStopping, TensorBoard
-early_stopping = EarlyStopping(monitor='loss', patience=5, mode='min') 
-#to_hist = TensorBoard(log_dir='graph', histogram_freq=0, write_graph=True, write_images=True) 
+from tensorflow.keras.callbacks import EarlyStopping
+early_stopping = EarlyStopping(monitor='val_loss', patience=5, mode='min') 
 model.fit(x_train, y_train, epochs=30, batch_size=32, verbose=1, validation_split=0.2, callbacks=[early_stopping])
 
 #4. 평가, 예측
@@ -50,22 +55,13 @@ loss, acc = model.evaluate(x_test, y_test, batch_size=32)
 print("loss : ", loss)
 print("acc : ", acc)
 
-y_pred = model.predict(x_predict)
-y_pred = np.argmax(y_pred, axis=1)
-print("y_col : ", y_col)
-print("y_pred : ", y_pred)
+y_predict = model.predict(x_predict)
+y_predict = np.argmax(y_predict, axis=1)
+print("y_real : ", y_real.reshape(10,))
+print("y_pred : ", y_predict)
 
 # 결과값
-# loss :  1.8720993995666504
-# acc :  0.6384000182151794
-# y_col :  [[3]
-#  [8]
-#  [8]
-#  [0]
-#  [6]
-#  [6]
-#  [1]
-#  [6]
-#  [3]
-#  [1]]
-# y_pred :  [3 8 8 1 4 6 1 6 3 1]
+# loss :  1.5297342538833618
+# acc :  0.649249255657196
+# y_real :  [3 8 8 0 6 6 1 6 3 1]
+# y_pred :  [5 8 1 8 6 6 1 6 3 9]

@@ -22,16 +22,25 @@ x = dataset.data #(150,4)
 y = dataset.target #(150,)
 #x의 데이터로 세가지 붓꽃 종 중 하나를 찾는 데이터셋이다
 
-print(x.shape)
-print(y.shape)
+x_pred = x[:10] #(10,4)
+y_real = y[:10] #(10,)
+x = x[10:] #(140,4)
+y = y[10:] #(140,)
 
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
-scaler = StandardScaler()
+scaler = MinMaxScaler()
 scaler.fit(x)
-x_standard = scaler.transform(x) 
-x_standard = x_standard.reshape(150,4,1)
+x_minmax = scaler.transform(x) 
+x_pred_minmax= scaler.transform(x_pred)
+x_minmax = x_minmax.reshape(140,4,1)
+x_pred_minmax = x_pred_minmax.reshape(10,4,1)
+
 from sklearn.model_selection import train_test_split
-x_train, x_test, y_train, y_test, = train_test_split(x_standard, y, train_size=0.8) 
+x_train, x_test, y_train, y_test, = train_test_split(x_minmax, y, train_size=0.8) 
+
+from tensorflow.keras.utils import to_categorical
+y_train = to_categorical(y_train)
+y_test = to_categorical(y_test)
 
 #2. 모델 구성
 model = Sequential()
@@ -47,43 +56,30 @@ model.add(Dense(60, activation='relu'))
 model.add(Dropout(0.2))
 model.add(Dense(10, activation='relu'))
 model.add(Dropout(0.2))
-model.add(Dense(1))
+model.add(Dense(3, activation='softmax'))
 model.summary()
 
 #3. 컴파일, 훈련
-model.compile(loss='mse', optimizer='adam')
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
 from tensorflow.keras.callbacks import EarlyStopping 
-early_stopping = EarlyStopping(monitor='loss', patience=100, mode='min') 
+early_stopping = EarlyStopping(monitor='loss', patience=5, mode='min') 
 
-model.fit(x_train, y_train, epochs=1000, batch_size=1, validation_split=0.25, verbose=1, callbacks=[early_stopping])
+model.fit(x_train, y_train, epochs=50, batch_size=1, validation_split=0.25, verbose=1, callbacks=[early_stopping])
 
 #4. 평가, 예측
-loss = model.evaluate(x_test, y_test)
+loss, acc = model.evaluate(x_test, y_test)
 print("loss : ", loss)
+print("acc : ", acc)
 
-y_predict = model.predict(x_test)
+y_predict = model.predict(x_pred_minmax)
+y_predict = np.argmax(y_predict, axis=1)
 
-#print(y_predict.shape) #(30, 1)
+print("y_real : ", y_real)
+print("y_predict : \n", y_predict)
 
-print("y_test : ", y_test)
-print("y_predict : \n", y_predict.reshape(30,))
-
-from sklearn.metrics import  mean_squared_error, r2_score
-
-def RMSE(y_test, y_predict):
-    return np.sqrt(mean_squared_error(y_test, y_predict))
-print("RMSE : ", RMSE(y_test, y_predict))
-
-r2 = r2_score(y_test, y_predict)
-print("R2 : ", r2)
-
-# loss :  0.03201625868678093
-# y_test :  [1 0 1 1 2 0 0 1 2 0 2 1 1 0 2 0 2 1 1 2 2 1 1 1 1 1 0 1 1 0]
+# 결과값
+# loss :  0.11062711477279663
+# acc :  0.9642857313156128
+# y_real :  [0 0 0 0 0 0 0 0 0 0]
 # y_predict :
-#  [1.0681347  0.09342384 1.0084966  1.003444   1.9526107  0.09488845
-#  0.09455979 1.0043015  1.9551556  0.09547716 1.9514378  1.0148848
-#  1.0037636  0.09441417 1.9546864  0.097018   1.9546921  1.0103385
-#  0.9988996  1.9642999  1.9491386  1.0126538  1.1004488  1.0085686
-#  1.0142605  1.0163022  0.09843504 1.9253905  1.0179269  0.09772229]
-# RMSE :  0.1789308729359209
-# R2 :  0.9358248740297336
+#  [0 0 0 0 0 0 0 0 0 0]

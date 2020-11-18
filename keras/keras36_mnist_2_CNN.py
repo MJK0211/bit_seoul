@@ -18,11 +18,9 @@ from tensorflow.keras.datasets import mnist #dataset인 mnist추가
 # print(y_train.shape, y_test.shape) #(60000,), (10000,)
 
 x_predict = x_test[:10]
-y_col = y_test[:10]
-print(x_predict.shape) #(10,28,28)
-# plt.imshow(x_train[0], 'winter_r')
-# plt.show()
-
+x_test = x_test[10:] #(9990,28,28)
+y_real = y_test[:10] #(10,)
+y_test = y_test[10:] #(9990,)
 
 #1_1. 데이터 전처리 - OneHotEncoding
 from tensorflow.keras.utils import to_categorical #keras
@@ -34,7 +32,7 @@ print(y_train.shape) #(60000, 10)
 print(y_train[0]) #5 - [0. 0. 0. 0. 0. 1. 0. 0. 0. 0.] - 0/1/2/3/4/5/6/7/8/9 - 5의 위치에 1이 표시됨
 
 x_train = x_train.reshape(60000,28,28,1).astype('float32')/255. #CNN은 4차원이기 때문에 4차원으로 변환, astype -0 형변환
-x_test = x_test.reshape(10000,28,28,1).astype('float32')/255.
+x_test = x_test.reshape(9990,28,28,1).astype('float32')/255.
 x_predict = x_predict.reshape(10,28,28,1).astype('float32')/255
 
 #2. 모델구성 
@@ -54,23 +52,22 @@ model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc']
 #다중분류에서는 categorical_crossentropy를 사용한다!
 
 from tensorflow.keras.callbacks import EarlyStopping, TensorBoard
-early_stopping = EarlyStopping(monitor='loss', patience=10, mode='min') 
+early_stopping = EarlyStopping(monitor='val_loss', patience=5, mode='min') 
 to_hist = TensorBoard(log_dir='graph', histogram_freq=0, write_graph=True, write_images=True) 
-model.fit(x_train, y_train, epochs=10, batch_size=32, verbose=1, validation_split=0.2, callbacks=[early_stopping])
+model.fit(x_train, y_train, epochs=30, batch_size=32, verbose=1, validation_split=0.2, callbacks=[early_stopping])
 
 #4. 평가, 예측
 loss, acc = model.evaluate(x_test, y_test, batch_size=32)
 print("loss : ", loss)
 print("acc : ", acc)
 
-y_pred = model.predict(x_predict)
-y_pred = np.argmax(y_pred, axis=1) #OneHotEncoding -> 디코딩하는 문장, axis=0-열, axis=1-행, 즉 y_pred값 안의 행에서 최대값을 가진 곳의 index값을 추출하겠다
-print("y_col : ", y_col)
-print("y_pred : ", y_pred)
-
+y_predict = model.predict(x_predict)
+y_predict = np.argmax(y_predict, axis=1) #OneHotEncoding -> 디코딩하는 문장, axis=0-열, axis=1-행, 즉 y_pred값 안의 행에서 최대값을 가진 곳의 index값을 추출하겠다
+print("y_real : ", y_real)
+print("y_pred : ", y_predict)
 
 # 결과값
-# loss :  0.06548123806715012
-# acc :  0.9853000044822693
-# y_col :  [7 2 1 0 4 1 4 9 5 9]
+# loss :  0.05179480090737343
+# acc :  0.9871872067451477
+# y_real :  [7 2 1 0 4 1 4 9 5 9]
 # y_pred :  [7 2 1 0 4 1 4 9 5 9]
