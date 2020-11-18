@@ -8,6 +8,7 @@ from tensorflow.keras.layers import Dense, Conv2D, MaxPooling2D, Flatten, Dropou
 from tensorflow.keras.datasets import cifar100 #dataset인 cifar100추가
 from tensorflow.keras.utils import to_categorical
 
+#1. 데이터
 (x_train, y_train), (x_test, y_test) = cifar100.load_data()
 x_predict = x_test[:10]
 x_test = x_test[10:]

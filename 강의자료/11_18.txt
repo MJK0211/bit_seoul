@@ -1,1 +1,13 @@
 이진분류
+
+Sigmoid
+-> 0과 1사이의 실수를 리턴하는 유명 한 함수가 sigmoid함수
+-> 0.499 - 0, 0.6 - 1로 리턴
+-> OneHotEncoding이 필요없다
+
+ModelCheckpoint
+
+시각화
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(10,6)) #단위 무엇인지 찾아보기
