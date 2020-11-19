@@ -27,3 +27,6 @@
 
 > 11/18
 > load_dataset(boston, diabetes, iris, cancer), gpu_test, model_checkpoint, best_model & model_weight - save, load
+
+> 11/19
+> model_save & load, CSV->NPY, Conv1D, pandas, pandas_loc & iloc
