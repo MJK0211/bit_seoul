@@ -12,18 +12,21 @@
 .history
 .ionide
 
+#data파일
 *.h5
 *.hdf5
 *.v2
 *.npy
 *.csv
 
+#zip파일
 *.dmg
 *.iso
 *.tar
 *.zip
 *.gz
 
+#문서
 *.xlsx
 *.xls
 *.pdf
@@ -31,7 +34,9 @@
 *.ppt
 *.pptx
 
+#폴더
 data/
 model/
 save/
+graph/
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode
