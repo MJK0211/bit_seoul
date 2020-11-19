@@ -4,7 +4,7 @@ import numpy as np
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Conv2D, MaxPooling2D, Flatten, Dropout
-from sklearn.datasets import load_diabetes #load_diabetes 당뇨병데이터
+# from sklearn.datasets import load_diabetes #load_diabetes 당뇨병데이터
 
 #1. 데이터
 # Attribute Information (in order):
@@ -20,13 +20,19 @@ from sklearn.datasets import load_diabetes #load_diabetes 당뇨병데이터
 #     9    - s6 glu   혈당 수치
 #    10    - target  1년 후 질병 진행의 측정
 
-dataset = load_diabetes()
-x = dataset.data #(442,10), 인덱스 0~9의 값
-y = dataset.target #(442,), 인덱스 10의 값- 1년 후 당뇨병 진행의 측정
-#x의 데이터로 1년 후 당뇨병 진행을 측정하는 데이터셋이다.
+# dataset = load_diabetes()
+# x = dataset.data #(442,10), 인덱스 0~9의 값
+# y = dataset.target #(442,), 인덱스 10의 값- 1년 후 당뇨병 진행의 측정
+# #x의 데이터로 1년 후 당뇨병 진행을 측정하는 데이터셋이다.
 
-from sklearn.model_selection import train_test_split
-x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8) 
+# from sklearn.model_selection import train_test_split
+# x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8) 
+
+x_train = np.load('./data/diabetes_x_train.npy')
+x_test = np.load('./data/diabetes_x_test.npy')
+y_train = np.load('./data/diabetes_y_train.npy')
+y_test = np.load('./data/diabetes_y_test.npy')
+
 
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 scaler = MinMaxScaler()

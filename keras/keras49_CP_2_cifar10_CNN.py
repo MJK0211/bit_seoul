@@ -5,13 +5,18 @@ import matplotlib.pyplot as plt
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Conv2D, MaxPooling2D, Flatten
-from tensorflow.keras.datasets import cifar10 #dataset인 cifar10추가
+# from tensorflow.keras.datasets import cifar10 #dataset인 cifar10추가
 from tensorflow.keras.utils import to_categorical
 
 #1. 데이터
 #cifar10을 통해 비행기, 자동차, 새, 고양이, 사슴, 개, 개구리, 말, 배, 트럭 데이터 검출
 
-(x_train, y_train), (x_test, y_test) = cifar10.load_data()
+# (x_train, y_train), (x_test, y_test) = cifar10.load_data()
+
+x_train = np.load('./data/cifar10_x_train.npy')
+x_test = np.load('./data/cifar10_x_test.npy')
+y_train = np.load('./data/cifar10_y_train.npy')
+y_test = np.load('./data/cifar10_y_test.npy')
 
 x_predict = x_test[:10]
 x_test = x_test[10:]

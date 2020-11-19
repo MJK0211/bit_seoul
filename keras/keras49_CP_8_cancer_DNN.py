@@ -4,16 +4,22 @@ import numpy as np
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Conv2D, MaxPooling2D, Flatten, Dropout
-from sklearn.datasets import load_breast_cancer #load_breast_cancer 이진분류(유방암) 걸렸으면1, 아니면2
+# from sklearn.datasets import load_breast_cancer #load_breast_cancer 이진분류(유방암) 걸렸으면1, 아니면2
 
-dataset = load_breast_cancer()
-x = dataset.data #(569, 30)
-y = dataset.target #(569,)
+# dataset = load_breast_cancer()
 
-print(x.shape) #(559, 30)
+# x = dataset.data #(569, 30)
+# y = dataset.target #(569,)
 
-from sklearn.model_selection import train_test_split
-x_train, x_test, y_train, y_test, = train_test_split(x, y, train_size=0.8) 
+# print(x.shape) #(559, 30)
+
+# from sklearn.model_selection import train_test_split
+# x_train, x_test, y_train, y_test, = train_test_split(x, y, train_size=0.8) 
+
+x_train = np.load('./data/cancer_x_train.npy')
+x_test = np.load('./data/cancer_x_test.npy')
+y_train = np.load('./data/cancer_y_train.npy')
+y_test = np.load('./data/cancer_y_test.npy')
 
 x_predict = x_test[:10]
 x_test = x_test[10:]

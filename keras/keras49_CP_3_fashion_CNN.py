@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Conv2D, MaxPooling2D, Flatten
-from tensorflow.keras.datasets import fashion_mnist #dataset인 fashion_mnist 추가
+# from tensorflow.keras.datasets import fashion_mnist #dataset인 fashion_mnist 추가
 from tensorflow.keras.utils import to_categorical 
 
 #1. 데이터
@@ -21,7 +21,14 @@ from tensorflow.keras.utils import to_categorical
 # 8 가방
 # 9 앵클 부츠
 
-(x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
+# (x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
+
+x_train = np.load('./data/fashion_mnist_x_train.npy')
+x_test = np.load('./data/fashion_mnist_x_test.npy')
+y_train = np.load('./data/fashion_mnist_y_train.npy')
+y_test = np.load('./data/fashion_mnist_y_test.npy')
+
+
 x_predict = x_test[:10]
 x_test = x_test[10:]
 y_real = y_test[:10]

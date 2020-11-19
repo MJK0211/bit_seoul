@@ -5,6 +5,7 @@ from tensorflow.keras.layers import Dense, Conv2D, MaxPooling2D, Flatten, Dropou
 from sklearn.datasets import load_iris #dataset인 load_iris 추가
 
 #1. 데이터
+
 dataset = load_iris()
 x = dataset.data #(150,4)
 y = dataset.target #(150,)
@@ -41,8 +42,8 @@ y_test = to_categorical(y_test)
 ################### 1. load_model ########################
 
 #3. 컴파일, 훈련
-
 from tensorflow.keras.models import load_model
+
 model1 = load_model('./save/iris_CNN_model_fit.h5')
 
 #4. 평가, 예측
