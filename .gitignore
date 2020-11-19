@@ -16,6 +16,7 @@
 *.hdf5
 *.v2
 *.npy
+*.csv
 
 *.dmg
 *.iso
@@ -29,4 +30,8 @@
 *.docs
 *.ppt
 *.pptx
+
+data/
+model/
+save/
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode
