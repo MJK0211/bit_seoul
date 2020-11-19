@@ -10,6 +10,8 @@ x = dataset.data #(442,10), 인덱스 0~9의 값
 y = dataset.target #(442,), 인덱스 10의 값- 1년 후 당뇨병 진행의 측정
 #x의 데이터로 1년 후 당뇨병 진행을 측정하는 데이터셋이다.
 
+print(x.shape)
+
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8) 
 

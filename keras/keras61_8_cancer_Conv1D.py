@@ -6,7 +6,6 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, MaxPooling1D, Flatten, LSTM, Conv1D
 
 #1. 데이터
-#mnist를 통해 손글씨 1~9까지의 데이터를 사용
 
 x_train = np.load('./data/npy/cancer_x_train.npy') 
 x_test = np.load('./data/npy/cancer_x_test.npy') 
@@ -24,7 +23,7 @@ print(y_train.shape) #(455,)
 print(y_test.shape) #(104,)
 print(y_real.shape) #(10,)
 
-
+'''
 #1_1. 데이터 전처리
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 scaler = MinMaxScaler()
@@ -70,3 +69,4 @@ print("y_pred : ", y_predict)
 # acc :  1.0
 # y_real :  [1 1 1 0 0 1 1 1 0 1]
 # y_pred :  [1. 1. 1. 0. 0. 1. 1. 1. 0. 1.]
+'''

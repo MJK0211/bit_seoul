@@ -23,7 +23,6 @@ print(y_train.shape) #(353,)
 print(y_test.shape) #(79,)
 print(y_real.shape) #(10,)
 
-
 #1.1 데이터 전처리
 from sklearn.preprocessing import MinMaxScaler
 scaler = MinMaxScaler()
@@ -52,18 +51,17 @@ model.compile(loss='mse', optimizer='adam')
 
 from tensorflow.keras.callbacks import EarlyStopping, TensorBoard
 early_stopping = EarlyStopping(monitor='loss', patience=50, mode='min')  
-model.fit(x_train_minmax, y_train, epochs=500, batch_size=12, verbose=1, validation_split=0.2, callbacks=[early_stopping])
+model.fit(x_train_minmax, y_train, epochs=500, batch_size=32, verbose=1, validation_split=0.2, callbacks=[early_stopping])
 
 #4. 평가, 예측
-loss = model.evaluate(x_test_minmax, y_test, batch_size=12)
+loss = model.evaluate(x_test_minmax, y_test, batch_size=32)
 print("loss : ", loss)
 
 y_pred = model.predict(x_pred_minmax)
-y_pred = np.argmax(y_pred, axis=1)
 print("y_real : ", y_real.reshape(10,))
-print("y_pred : ", y_pred)
+print("y_pred : ", y_pred.reshape(10,))
 
 # 결과값
-# loss :  3707.8310546875
 # y_real :  [ 60.  59. 210.  84. 243. 163. 308. 182.  94.  51.]
-# y_pred :  [0 0 0 0 0 0 0 0 0 0]
+# y_pred :  [119.95929   68.342415 148.36194  113.933105 282.0313   187.16333
+#  263.3832   140.92418   92.80041   69.553085]

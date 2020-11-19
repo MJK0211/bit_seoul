@@ -23,6 +23,7 @@ np.save('./data/cifar100_y_train.npy', arr=y_train)
 np.save('./data/cifar100_y_test.npy', arr=y_test)
 
 from sklearn.model_selection import train_test_split
+
 boston = load_boston()
 x = boston.data
 y = boston.target
@@ -49,4 +50,3 @@ np.save('./data/cancer_x_train.npy', arr=x_train)
 np.save('./data/cancer_x_test.npy', arr=x_test)
 np.save('./data/cancer_y_train.npy', arr=y_train)
 np.save('./data/cancer_y_test.npy', arr=y_test)
-

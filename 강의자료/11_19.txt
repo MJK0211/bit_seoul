@@ -44,3 +44,6 @@ CNN
 -> 특성 추출(feature)
 
 pandas - loc, iloc 조사하고 정리하기 
+
+split 함수 적용시 문제점
+-> 여러개의 컬럼을 덩어리로 자르는 법 찾아보기

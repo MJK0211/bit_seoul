@@ -58,12 +58,12 @@ loss = model.evaluate(x_test_minmax, y_test, batch_size=12)
 print("loss : ", loss)
 
 y_pred = model.predict(x_pred_minmax)
-y_pred = np.argmax(y_pred, axis=1)
 print("y_real : ", y_real.reshape(10,))
-print("y_pred : ", y_pred)
+print("y_pred : ", y_pred.reshape(10,))
 
 # 결과값
-# loss :  5.371398448944092
+# loss :  5.731813430786133
 # y_real :  [21.4 28.6 22.  22.3 21.4 19.1 31.6 23.  14.5 20.5]
-# y_pred :  [0 0 0 0 0 0 0 0 0 0]
+# y_pred :  [19.371447  29.673595  17.422724  20.6923    17.76326   14.7385235
+#  28.617008  18.072317  15.248912  18.56336  ]
 
