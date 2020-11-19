@@ -11,10 +11,11 @@
 # Ignore all local history of files
 .history
 .ionide
-.h5
-.hdf5
-.v2
-.npy
+
+*.h5
+*.hdf5
+*.v2
+*.npy
 
 *.dmg
 *.iso
