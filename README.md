@@ -21,3 +21,9 @@
 
 > 11/16
 > CNN, CNN_maxpooling, mnist, mnist_plt_show, mnist_CNN, mnist_DNN, OneHotEncoding, softmax, categorical_crossentropy
+
+> 11/17
+> model_save, model_load, load_dataset(cifar10, fashion_mnist, cifar100), model_Dropout
+
+> 11/18
+> load_dataset(boston, diabetes, iris, cancer), gpu_test, model_checkpoint, best_model & model_weight - save, load
