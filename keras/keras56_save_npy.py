@@ -1,4 +1,4 @@
-#save dataset 6개
+#save dataset 6개 저장
 
 from sklearn.datasets import load_diabetes, load_breast_cancer, load_boston
 from tensorflow.keras.datasets import fashion_mnist, cifar10, cifar100

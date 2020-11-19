@@ -5,16 +5,11 @@ import matplotlib.pyplot as plt
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Conv2D, MaxPooling2D, Flatten, Dropout
-# from tensorflow.keras.datasets import cifar100 #dataset인 cifar100추가
+from tensorflow.keras.datasets import cifar100 #dataset인 cifar100추가
 from tensorflow.keras.utils import to_categorical
 
 #1. 데이터
-# (x_train, y_train), (x_test, y_test) = cifar100.load_data()
-
-x_train = np.load('./data/cifar100_x_train.npy')
-x_test = np.load('./data/cifar100_x_test.npy')
-y_train = np.load('./data/cifar100_y_train.npy')
-y_test = np.load('./data/cifar100_y_test.npy')
+(x_train, y_train), (x_test, y_test) = cifar100.load_data()
 
 x_predict = x_test[:10]
 x_test = x_test[10:]

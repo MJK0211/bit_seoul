@@ -5,16 +5,12 @@ import matplotlib.pyplot as plt
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Conv2D, MaxPooling2D, Flatten
-#from tensorflow.keras.datasets import mnist #dataset인 mnist추가
+from tensorflow.keras.datasets import mnist #dataset인 mnist추가
 
 #1. 데이터
 #mnist를 통해 손글씨 1~9까지의 데이터를 사용
 
-# (x_train, y_train), (x_test, y_test) = mnist.load_data()
-x_train = np.load('./data/mnist_x_train.npy')
-x_test = np.load('./data/mnist_x_test.npy')
-y_train = np.load('./data/mnist_y_train.npy')
-y_test = np.load('./data/mnist_y_test.npy')
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
 
 # print(x_train.shape, x_test.shape) #(60000,28,28), (10000,28,28)
 # print(y_train.shape, y_test.shape) #(60000,), (10000,)

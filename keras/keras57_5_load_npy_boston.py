@@ -4,7 +4,7 @@ import numpy as np
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Conv2D, MaxPooling2D, Flatten, Dropout
-from sklearn.datasets import load_boston #load_boston 주택가격 데이터셋 추가
+# from sklearn.datasets import load_boston #load_boston 주택가격 데이터셋 추가
 
 #1. 데이터
 # Attribute Information (in order):
@@ -23,13 +23,18 @@ from sklearn.datasets import load_boston #load_boston 주택가격 데이터셋 
 #    12    - LSTAT    인구 중 하위 계층 비율
 #    13    - MEDV     소유주가 거주하는 주택의 가치 (단위 : $ 1000)
 
-dataset = load_boston()
-x = dataset.data #(506,13), 인덱스 0~12의 값
-y = dataset.target #(506,), 인덱스 13의 값 - 소유주가 거주하는 주택의 가치 (단위 : $ 1000)
-#x의 데이터로 본인의 주택의 가치를 평가하는 데이터 셋이다.
+# dataset = load_boston()
+# x = dataset.data #(506,13), 인덱스 0~12의 값
+# y = dataset.target #(506,), 인덱스 13의 값 - 소유주가 거주하는 주택의 가치 (단위 : $ 1000)
+# #x의 데이터로 본인의 주택의 가치를 평가하는 데이터 셋이다.
 
-from sklearn.model_selection import train_test_split
-x_train, x_test, y_train, y_test, = train_test_split(x, y, train_size=0.8) 
+# from sklearn.model_selection import train_test_split
+# x_train, x_test, y_train, y_test, = train_test_split(x, y, train_size=0.8) 
+
+x_train = np.load('./data/npy/boston_x_train.npy')
+x_test = np.load('./data/npy/boston_x_test.npy')
+y_train = np.load('./data/npy/boston_y_train.npy')
+y_test = np.load('./data/npy/boston_y_test.npy')
 
 from sklearn.preprocessing import MinMaxScaler, StandardScaler #데이터 전처리 StandardScaler 추가
 scaler = StandardScaler()

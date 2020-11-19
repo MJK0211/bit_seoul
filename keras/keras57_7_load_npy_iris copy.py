@@ -4,7 +4,7 @@ import numpy as np
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Conv2D, MaxPooling2D, Flatten, Dropout
-from sklearn.datasets import load_iris #load_iris 꽃 확인
+# from sklearn.datasets import load_iris #load_iris 꽃 확인
 
 #1. 데이터
 # Attribute Information (in order):
@@ -17,14 +17,14 @@ from sklearn.datasets import load_iris #load_iris 꽃 확인
                 # 1 - Iris-Versicolour
                 # 2 - Iris-Virginica
 
-dataset = load_iris()
+# dataset = load_iris()
 
-x = dataset.data #(150,4)
-y = dataset.target #(150,)
-#x의 데이터로 세가지 붓꽃 종 중 하나를 찾는 데이터셋이다
+# x = dataset.data #(150,4)
+# y = dataset.target #(150,)
+# #x의 데이터로 세가지 붓꽃 종 중 하나를 찾는 데이터셋이다
 
-from sklearn.model_selection import train_test_split
-x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8) 
+# from sklearn.model_selection import train_test_split
+# x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8) 
 
 x_train = np.load('./data/npy/iris_x_train.npy')
 x_test = np.load('./data/npy/iris_x_test.npy')
