@@ -4,10 +4,10 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Conv2D, MaxPooling2D, Flatten
 
 #1. 데이터
-x_train = np.load('./data/mnist_x_train.npy')
-x_test = np.load('./data/mnist_x_test.npy')
-y_train = np.load('./data/mnist_y_train.npy')
-y_test = np.load('./data/mnist_y_test.npy')
+x_train = np.load('./data/npy/mnist_x_train.npy')
+x_test = np.load('./data/npy/mnist_x_test.npy')
+y_train = np.load('./data/npy/mnist_y_train.npy')
+y_test = np.load('./data/npy/mnist_y_test.npy')
 
 x_predict = x_test[:10]
 x_test = x_test[10:] #(9990,28,28)
