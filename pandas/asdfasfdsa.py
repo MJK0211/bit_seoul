@@ -49,8 +49,7 @@ def split_xy5(dataset, time_steps, y_column):
         y_end_number = x_end_number + y_column
 
         if y_end_number > len(dataset):
-            x_predict = dataset[i:x_end_number, :]        
-            tmp_y = dataset[x_end_number:y_end_number+1, 3]  
+            x_predict = dataset[i:x_end_number, :]          
             break
         tmp_x = dataset[i:x_end_number, :]
         tmp_y = dataset[x_end_number:y_end_number, 3]
@@ -62,12 +61,7 @@ def split_xy5(dataset, time_steps, y_column):
 
 x_samsung, y_samsung, x_samsung_predict = split_xy5(samsung, 5, 1)
 x_bit, y_bit, x_bit_predict = split_xy5(bit, 5, 1)
-print(x_samsung_predict)
-print(x_samsung[-1])
-print(y_samsung[-1])
 
-
-'''
 # print(x_samsung.shape) #(621, 5, 6)
 # print(y_samsung.shape) #(621, 1)
 # print(x_samsung_predict.shape) #(5, 6)
@@ -79,6 +73,14 @@ from sklearn.model_selection import train_test_split
 x_samsung_train, x_samsung_test, y_samsung_train, y_samsung_test, = train_test_split(x_samsung, y_samsung, train_size=0.8) 
 x_bit_train, x_bit_test, y_bit_train, y_bit_test, = train_test_split(x_bit, y_bit, train_size=0.8) 
 
+print(x_samsung_predict)
+print(x_samsung[620])
+print(y_samsung[620])
+# print(x_samsung_train.shape) #(498, 3, 6)
+# print(x_samsung_test.shape) #(125, 3, 6)
+# print(x_samsung_predict.shape) #(3, 6)
+# print(x_samsung.shape) #(621,5,6)
+'''
 x_samsung_train = x_samsung_train.reshape(496,30)
 x_samsung_test = x_samsung_test.reshape(125,30)
 x_samsung_predict = x_samsung_predict.reshape(1,30)

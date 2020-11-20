@@ -48,11 +48,11 @@ def split_xy5(dataset, time_steps, y_column):
         x_end_number = i + time_steps
         y_end_number = x_end_number + y_column
 
-        if y_end_number > len(dataset)+1:
+        if y_end_number > len(dataset):
             x_predict = dataset[i:x_end_number, :]          
             break
         tmp_x = dataset[i:x_end_number, :]
-        tmp_y = dataset[x_end_number:y_end_number, 1]
+        tmp_y = dataset[x_end_number:y_end_number, 3]
        
         x.append(tmp_x)
         y.append(tmp_y)
