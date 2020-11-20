@@ -1,7 +1,6 @@
 import numpy as np
 
 #1. 데이터
-
 samsung = np.load('./data/npy/samsung.npy', allow_pickle=True).astype('float32')
 bit = np.load('./data/npy/bit.npy', allow_pickle=True).astype('float32')
 kosdaq = np.load('./data/npy/kosdaq.npy', allow_pickle=True).astype('float32')
@@ -149,18 +148,17 @@ output1_4 = Dense(1)(output1_3)
 model = Model(inputs=[input1, input2, input3, input4], outputs=output1_4)
 model.summary()
 
-
 #3. 컴파일, 훈련
-#modelpath = './model/samsung_pred-{epoch:02d}-{val_loss:.4f}.hdf5'
+modelpath = './model/삼성시가/삼성시가_pred-{epoch:02d}-{val_loss:.4f}.hdf5'
 
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint #ModelCheckpoint 추가
 model.compile(loss='mse', optimizer='adam', metrics=['mae'])
 
-early_stopping = EarlyStopping(monitor='val_loss', patience=2000, mode='min') 
-#check_point = ModelCheckpoint(filepath=modelpath, monitor='val_loss', save_best_only=True, mode='min') #val_loss가 가장 좋은 값을 저장할 것이다
-model.fit([x_samsung_train_minmax, x_bit_train_minmax, x_kosdaq_train_minmax, x_gold_train_minmax], y_samsung_train, epochs=50000, batch_size=32, validation_split=0.25, verbose=1, callbacks=[early_stopping])
+early_stopping = EarlyStopping(monitor='val_loss', patience=10000, mode='min') 
+check_point = ModelCheckpoint(filepath=modelpath, monitor='val_loss', save_best_only=True, mode='min') #val_loss가 가장 좋은 값을 저장할 것이다
+model.fit([x_samsung_train_minmax, x_bit_train_minmax, x_kosdaq_train_minmax, x_gold_train_minmax], y_samsung_train, epochs=80000, batch_size=32, validation_split=0.25, verbose=1, callbacks=[early_stopping, check_point])
 
-#model.save_weights('./save/samsung_pred_model_weight.h5')
+model.save_weights('./save/삼성시가/삼성시가_pred_model_weight.h5')
 
 #4. 평가, 예측
 loss, mae = model.evaluate([x_samsung_test_minmax, x_bit_test_minmax, x_kosdaq_test_minmax, x_gold_test_minmax], y_samsung_test, batch_size=32)
@@ -169,3 +167,8 @@ print("mae : ", mae)
 
 y_pred = model.predict([x_samsung_predict_minmax, x_bit_predict_minmax, x_kosdaq_predict_minmax, x_gold_predict_minmax])
 print("11/23 삼성 시가 : ", y_pred)
+
+# 결과값
+# loss :  3372257.0
+# mae :  1253.99462890625
+# 11/23 삼성 시가 :  [[65557.02]]
