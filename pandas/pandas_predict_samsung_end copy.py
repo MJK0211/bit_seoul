@@ -49,7 +49,8 @@ def split_xy5(dataset, time_steps, y_column):
         y_end_number = x_end_number + y_column
 
         if y_end_number > len(dataset):
-            x_predict = dataset[i:x_end_number, :]          
+            x_predict = dataset[i:x_end_number, :]        
+            tmp_y = dataset[x_end_number:y_end_number+1, 3]  
             break
         tmp_x = dataset[i:x_end_number, :]
         tmp_y = dataset[x_end_number:y_end_number, 3]
@@ -61,7 +62,12 @@ def split_xy5(dataset, time_steps, y_column):
 
 x_samsung, y_samsung, x_samsung_predict = split_xy5(samsung, 5, 1)
 x_bit, y_bit, x_bit_predict = split_xy5(bit, 5, 1)
+print(x_samsung_predict)
+print(x_samsung[-1])
+print(y_samsung[-1])
 
+
+'''
 # print(x_samsung.shape) #(621, 5, 6)
 # print(y_samsung.shape) #(621, 1)
 # print(x_samsung_predict.shape) #(5, 6)
@@ -106,13 +112,6 @@ x_bit_predict_minmax = scaler2.transform(x_bit_predict)
 # y_samsung_test = y_samsung_test.reshape(125,)
 # y_bit_train =y_bit_train.reshape(496,)
 # y_bit_test =y_bit_test.reshape(125,)
-
-# x_samsung_train_minmax = x_samsung_train_minmax.reshape(496,5,6)
-# x_samsung_test_minmax = x_samsung_test_minmax.reshape(125,5,6)
-# x_samsung_predict_minmax = x_samsung_predict_minmax.reshape(1,5,6)
-# x_bit_train_minmax = x_bit_train_minmax.reshape(496,5,5)
-# x_bit_test_minmax = x_bit_test_minmax.reshape(125,5,5)
-# x_bit_predict_minmax = x_bit_predict_minmax.reshape(1,5,5)
 
 #2. 모델 구성
 from tensorflow.keras.models import Sequential, Model
@@ -173,3 +172,4 @@ print("11/20 삼성 종가 : ", y_pred)
 # loss :  971966.875
 # acc :  0.0
 # 11/20 삼성 종가 :  [[64190.375]]
+'''
