@@ -99,66 +99,10 @@ x_gold_train_minmax = scaler4.transform(x_gold_train)
 x_gold_test_minmax = scaler4.transform(x_gold_test)
 x_gold_predict_minmax = scaler4.transform(x_gold_predict)
 
-#2. 모델 구성
-from tensorflow.keras.models import Sequential, Model
-from tensorflow.keras.layers import Dense, Dropout, Concatenate, Input, LSTM
-
-#2_1 모델1
-input1 = Input(shape=(18,)) #input1 layer 구성
-dense1_1 = Dense(100, activation='relu')(input1)
-dense1_2 = Dense(30, activation='relu')(dense1_1) 
-dense1_3 = Dense(7, activation='relu')(dense1_2)
-output1 = Dense(1)(dense1_3)
-
-#2_2 모델2
-input2 = Input(shape=(15,)) #input2 layer 구성
-dense2_1 = Dense(100, activation='relu')(input2) 
-dense2_2= Dense(30, activation='relu')(dense2_1) 
-dense2_3= Dense(7, activation='relu')(dense2_2)
-output2 = Dense(1)(dense2_3)
-
-#2_3 모델3
-input3 = Input(shape=(12,)) #input3 layer 구성
-dense3_1 = Dense(100, activation='relu')(input3) 
-dense3_2= Dense(30, activation='relu')(dense3_1) 
-dense3_3= Dense(7, activation='relu')(dense3_2)
-output3 = Dense(1)(dense3_3)
-
-#2_4 모델4
-input4 = Input(shape=(9,)) #input4 layer 구성
-dense4_1 = Dense(100, activation='relu')(input4) 
-dense4_2= Dense(30, activation='relu')(dense4_1) 
-dense4_3= Dense(7, activation='relu')(dense4_2)
-output4 = Dense(1)(dense4_3)
-
-#모델 병합
-merge1 = Concatenate()([output1, output2, output3, output4]) 
-
-middle1 = Dense(30)(merge1)
-middle2 = Dense(7)(middle1)
-middle3 = Dense(11)(middle2)
-
-#output 모델 구성 (분기-나눔)
-output1_1 = Dense(30)(middle3)
-output1_2 = Dense(13)(output1_1)
-output1_3 = Dense(7)(output1_2)
-output1_4 = Dense(1)(output1_3)
-
-#모델 정의
-model = Model(inputs=[input1, input2, input3, input4], outputs=output1_4)
-model.summary()
-
+from tensorflow.keras.models import load_model
 #3. 컴파일, 훈련
-modelpath = './model/삼성시가/삼성시가_pred-{epoch:05d}-{val_loss:.4f}.hdf5'
 
-from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint #ModelCheckpoint 추가
-model.compile(loss='mse', optimizer='adam', metrics=['mae'])
-
-early_stopping = EarlyStopping(monitor='val_loss', patience=10000, mode='min') 
-check_point = ModelCheckpoint(filepath=modelpath, monitor='val_loss', save_best_only=True, mode='min') #val_loss가 가장 좋은 값을 저장할 것이다
-model.fit([x_samsung_train_minmax, x_bit_train_minmax, x_kosdaq_train_minmax, x_gold_train_minmax], y_samsung_train, epochs=30000, batch_size=32, validation_split=0.25, verbose=1, callbacks=[early_stopping, check_point])
-
-model.save_weights('./save/삼성시가/삼성시가_pred_model_weight.h5')
+model = load_model('./model/삼성시가/삼성시가_pred-02396-1257542.8750.hdf5')
 
 #4. 평가, 예측
 loss, mae = model.evaluate([x_samsung_test_minmax, x_bit_test_minmax, x_kosdaq_test_minmax, x_gold_test_minmax], y_samsung_test, batch_size=32)
