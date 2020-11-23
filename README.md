@@ -30,3 +30,6 @@
 
 > 11/19
 > model_save & load, CSV->NPY, Conv1D, pandas, pandas_loc & iloc
+
+> 11/20
+> 삼성전자 종가 예측하기
