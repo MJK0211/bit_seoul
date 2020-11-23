@@ -33,3 +33,6 @@
 
 > 11/20
 > 삼성전자 종가 예측하기
+
+> 11/23
+> 머신러닝, LinearSVC, SVC, KNeighborsClassifier, KNeighborsRegressor, RandomForestClassifier, RandomForestRegressor
