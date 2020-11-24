@@ -1,4 +1,4 @@
-# 클래스파이어 모델들 추출
+#리그레서 모델들을 추출
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
