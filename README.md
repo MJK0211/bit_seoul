@@ -36,3 +36,6 @@
 
 > 11/23
 > 머신러닝, LinearSVC, SVC, KNeighborsClassifier, KNeighborsRegressor, RandomForestClassifier, RandomForestRegressor
+
+> 11/24
+> Cross validation, K-fold, estimators_algorithm, GridSearch, RandomSearch, Pipeline, RandomForestClassifier, GradientBoostingClassifier, XGBoost
