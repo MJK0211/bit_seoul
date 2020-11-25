@@ -39,3 +39,6 @@
 
 > 11/24
 > Cross validation, K-fold, estimators_algorithm, GridSearch, RandomSearch, Pipeline, RandomForestClassifier, GradientBoostingClassifier, XGBoost
+
+> 11/25
+> PCA, Feature_importance, xgb_GridSearch, xgb_RandomSearch, xgb_Pipeline
