@@ -27,3 +27,7 @@ pca.explained_variance_ratio_
 
 sum(pca_EVR)
 -> feature_importances_ 손실되고 남은 값
+
+개인프로젝트
+11/26 오후 아이디어 발표, 금토일월 - 프로젝트 완성!
+12/1 화요일 발표!

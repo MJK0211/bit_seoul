@@ -14,6 +14,7 @@ cancer = load_breast_cancer()
 
 x_train, x_test, y_train, y_test = train_test_split(cancer.data, cancer.target , train_size=0.8, random_state=42, shuffle=True)
 
+
 #2. 모델 구성
 # model = DecisionTreeClassifier(max_depth=4) 제일 성능 안좋음
 # model = RandomForestClassifier(max_depth=4)
