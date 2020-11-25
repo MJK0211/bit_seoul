@@ -31,15 +31,15 @@ n_components2 = np.argmax(cumsum >=1) + 1 #713
 
 pca = PCA(n_components1)
 # pca = PCA(n_components=713)
-
 x2d = pca.fit_transform((x_train_test))
 # print(x2d.shape) #(70000, 154)
 
 x_train = x2d[:60000]
-x_test = x2d[60000:]
+x_test = x2d[60000:69990]
+x_pred = x2d[69990:]
 
-print(x_train.shape)
-print(x_test.shape)
+y_real = y_test[9990:]
+y_test = y_test[:9990]
 
 #1_1. 데이터 전처리 - OneHotEncoding
 from tensorflow.keras.utils import to_categorical #keras
@@ -69,12 +69,13 @@ loss, acc = model.evaluate(x_test, y_test, batch_size=32)
 print("loss : ", loss)
 print("acc : ", acc)
 
-y_pred = model.predict(x_test) # np.argmax로 변환하지 않아도 같은 값으로 출력이 가능하다
+y_pred = model.predict(x_pred) # np.argmax로 변환하지 않아도 같은 값으로 출력이 가능하다
 y_pred = np.argmax(y_pred, axis=1)
-print("y_test : ", y_test)
+print("y_real : ", y_real)
 print("y_pred : ", y_pred)
 
 # 결과값
-# loss :  0.20810957252979279
-# acc :  0.9587000012397766
-# y_pred :  [7 2 1 ... 4 5 6]
+# loss :  0.17483115196228027
+# acc :  0.9658658504486084
+# y_real :  [7 8 9 0 1 2 3 4 5 6]
+# y_pred :  [7 8 9 0 1 2 3 4 5 6]
