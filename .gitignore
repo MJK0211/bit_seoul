@@ -18,7 +18,9 @@
 *.v2
 *.npy
 *.csv
-
+*.json
+*.pb
+*.index
 #zip파일
 *.dmg
 *.iso
@@ -39,4 +41,5 @@ data/
 model/
 save/
 graph/
+image_classifier/
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode
