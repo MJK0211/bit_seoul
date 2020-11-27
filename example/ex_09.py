@@ -21,16 +21,11 @@ x = np.array([[0.03506588, 6, 91.79357157519804],
 
 # x_index, x_index2 = np.where(x==78.34727178085367)
 x_max = np.array(x[0][0])
-a = []
 
 for i in range(len(x)) : 
-    if x_sort[i][2] > x_max :
-       x_max = x_sort[i][2]
-       for j in range(len(x[0])) :
-           a.append(x_sort[i][j])
-        
-print(a)
-
+    if x[i][2] > x_max :
+       x_max = x[i][2]
+      
 # x_index, x_index2 = np.where(x==x_max)
 
 # print(x_index) 

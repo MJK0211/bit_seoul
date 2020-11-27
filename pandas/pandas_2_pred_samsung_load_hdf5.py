@@ -1,5 +1,5 @@
 import numpy as np
-
+np.set_printoptions(threshold=np.inf, linewidth=np.inf) #inf = infinity 
 #1. 데이터
 samsung = np.load('./data/npy/samsung.npy', allow_pickle=True).astype('float32')
 bit = np.load('./data/npy/bit.npy', allow_pickle=True).astype('float32')
