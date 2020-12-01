@@ -29,7 +29,6 @@ data_all = data_all[:2274]
 y_real = wage_result[2274:]
 y = wage_result[:2274]
 
-
 #1. 데이터
 x_train, x_test, y_train, y_test = train_test_split(data_all, y, train_size=0.8, random_state=66, shuffle=True)
 

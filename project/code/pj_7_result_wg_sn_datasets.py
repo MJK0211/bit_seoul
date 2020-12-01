@@ -17,22 +17,18 @@ for j in range(len(year)):
     count_list.append(count)
 count_list = np.array(count_list)
 
+print(count_list) #[ 88 248 245 245 248 246 243 244 246 222]
+
 wg = np.delete(wg, 0, axis=1)
 sn = np.delete(sn, 0, axis=1)
-result = np.array([])
+
+wage = np.array([])
 snack = np.array([])
 for i in range(len(wg)):
-    result = np.append(np.tile(wg[i], count_list[i]), result)
-    snack = np.append(np.tile(sn[i], count_list[i]), snack)
-
-print(result)
-
-result = np.sort(result)
-snack = np.sort(snack)
+    wage = np.append(wage, np.tile(wg[i], count_list[i]))
+    snack = np.append(snack, np.tile(sn[i], count_list[i]))  
+print(wage) #[4320. 4320. 4320. ... 8590. 8590. 8590.]
 print(snack)
-print(result)
 
-
-np.save('./project/data/npy/wage_result.npy', arr=result)
+np.save('./project/data/npy/wage_result.npy', arr=wage)
 np.save('./project/data/npy/snack_result.npy', arr=snack)
-

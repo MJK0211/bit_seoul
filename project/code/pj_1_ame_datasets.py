@@ -9,9 +9,6 @@ check_holiday = np.load('./project/data/npy/check_holiday.npy')
 holiday_all = np.hstack((holiday,holiday_k_stock,check_holiday))
 holiday_all = np.unique(holiday_all) 
 
-# print(holiday_all)
-
-
 df = pd.read_csv('./project/data/csv/미국환율.csv',
                   # parse_dates=['날짜'],
                   index_col=None,

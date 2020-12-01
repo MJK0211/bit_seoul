@@ -9,8 +9,8 @@ df = pd.read_csv('./project/data/csv/새우깡.csv',
 
 df = df.sort_values(['연도'], ascending=['True'])
 
-print(df.shape)
-'''
+# print(df.shape)
+print(df)
+
 df = df.values
 np.save('./project/data/npy/snack.npy', arr=df)
-'''
