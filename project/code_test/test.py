@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import datetime as dt
 
-df = pd.read_csv('./data/project/날씨.csv',
+df = pd.read_csv('./project/날씨.csv',
                   # parse_dates=['날짜'],
                   index_col=None,
                   header=0,
@@ -10,6 +10,9 @@ df = pd.read_csv('./data/project/날씨.csv',
                   sep=',')  #(1200,12)
 
 df['날짜'] = pd.to_datetime(df['날짜'])
+for i in range(len(df.index)):
+    df.iloc[i,0] = df.iloc[i,0].replace("-","")
+
 
 df['요일'] = df['날짜'].dt.day_name() #요일 설정
 

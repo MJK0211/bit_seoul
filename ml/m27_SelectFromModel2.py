@@ -94,6 +94,8 @@ for thresh in np.sort(thresholds): #데쿠사용 이유는 for문안에서 np.so
 # Thresh=0.266, n=2, R2: 69.41%, Index: 5
 # Thresh=0.354, n=1, R2: 44.98%, Index: 12
 
+print(thresholds[5:])
+'''
 print(type(find_index)) #<class 'collections.deque'>
 find_index = np.asarray(find_index) #데쿠 타입 데이터를 numpy로 변환
 print(find_index)
@@ -160,3 +162,4 @@ print("score2 : ", score2)
 
 # 결과값
 # score2 :  0.9321348631150079
+'''
