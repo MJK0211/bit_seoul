@@ -51,14 +51,11 @@ from tensorflow.keras.optimizers import Adam, Adadelta, Adamax, Adagrad
 from tensorflow.keras.optimizers import RMSprop, SGD, Nadam
 
 
-lr = [0.001, 0.01]   
-
 def create_hyperparameter(lr):
     # batches = [10, 20, 30, 40, 50]
     optimizers = [Adam, Adadelta, RMSprop]
     batches = [10, 20]
     dropout = [0.1, 0.5]
-    # optimizers = ['rmsprop', 'adam', 'adadelta'] #learning_rate 검색하기   
     lr=[0.1, 0.01]
     return {"batch_size" : batches, "optimizer" : optimizers, "drop" : dropout, "lr" : lr }
 

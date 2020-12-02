@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from tensorflow.keras.models import Sequential, Model
-from tensorflow.keras.layers import Dense, Conv2D, MaxPooling2D, Flatten, Input, Dropout
+from tensorflow.keras.layers import Dense, Conv2D, MaxPooling2D, Flatten, Input, Dropout, LSTM
 from tensorflow.keras.datasets import mnist #dataset인 mnist추가
 
 #1. 데이터
@@ -31,11 +31,11 @@ x_predict = x_predict.reshape(10,28,28).astype('float32')/255
 #2. 모델
 def build_model(drop=0.5, optimizer='adam'):
     inputs = Input(shape=(28,28), name='input')
-    x = Dense(10, activation='relu', name='hidden1')(inputs)
+    x = LSTM(256, activation='relu', name='hidden1')(inputs)
     x = Dropout(drop)(x)
-    x = Dense(10, activation='relu', name='hidden2')(x)
+    x = Dense(128, activation='relu', name='hidden2')(x)
     x = Dropout(drop)(x)
-    x = Dense(10, activation='relu', name='hidden3')(x)
+    x = Dense(64, activation='relu', name='hidden3')(x)
     x = Dropout(drop)(x)
     outputs = Dense(10, activation='softmax', name='outputs')(x)
     model = Model(inputs=inputs, outputs=outputs)
@@ -44,14 +44,9 @@ def build_model(drop=0.5, optimizer='adam'):
     return model
 
 def create_hyperparameter():
-    # batches = [10, 20, 30, 40, 50]
-    batches = [10, 20]
-    # optimizers = ['rmsprop', 'adam', 'adadelta'] #learning_rate 검색하기
-    optimizers = ['adam'] #learning_rate 검색하기
-
-    # dropout = np.linspace(0.1, 0.5, 5)
+    batches = [10, 20, 30, 40, 50]  
+    optimizers = ['rmsprop', 'adam', 'adadelta'] #learning_rate 검색하기
     dropout = [0.1, 0.5, 5]
-
     return{"batch_size" : batches, "optimizer" : optimizers, "drop" : dropout}
 
 hyperparameters = create_hyperparameter()
@@ -60,11 +55,15 @@ from tensorflow.keras.wrappers.scikit_learn import KerasClassifier #keras를 skl
 model = KerasClassifier(build_fn=build_model, verbose=1) #케라스 모델을 맵핑
 
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
-search = GridSearchCV(model, hyperparameters, cv=3)
-# search = RandomizedSearchCV(model, hyperparameters, cv=3)
+# search = GridSearchCV(model, hyperparameters, cv=3)
+search = RandomizedSearchCV(model, hyperparameters, cv=3)
 
 search.fit(x_train, y_train, verbose=1)
 
-# print(search.best_params_)
+print(search.best_params_)
 acc = search.score(x_test, y_test)
 print("acc : ", acc)
+
+# {'optimizer': 'adam', 'drop': 0.1, 'batch_size': 20}
+# 500/500 [==============================] - 2s 4ms/step - loss: 0.1427 - acc: 0.9535
+# acc :  0.9534534811973572

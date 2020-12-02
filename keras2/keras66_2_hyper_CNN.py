@@ -31,7 +31,7 @@ x_predict = x_predict.reshape(10,28,28,1).astype('float32')/255
 #2. 모델
 def build_model(drop=0.5, optimizer='adam'):
     inputs = Input(shape=(28,28,1), name='input')
-    x = Conv2D(20, kernel_size=(2,2), padding='same')(input)
+    x = Conv2D(20, kernel_size=(2,2), padding='same')(inputs)
     x = Dropout(drop)(x)
     x = Conv2D(10, kernel_size=(2,2), padding='same')(x)  
     x = Dropout(drop)(x)
@@ -45,14 +45,9 @@ def build_model(drop=0.5, optimizer='adam'):
     return model
 
 def create_hyperparameter():
-    # batches = [10, 20, 30, 40, 50]
-    batches = [10, 20]
-    # optimizers = ['rmsprop', 'adam', 'adadelta'] #learning_rate 검색하기
-    optimizers = ['rmsprop','adam'] #learning_rate 검색하기
-
-    # dropout = np.linspace(0.1, 0.5, 5)
+    batches = [10, 20, 30, 40, 50]  
+    optimizers = ['rmsprop', 'adam', 'adadelta'] #learning_rate 검색하기
     dropout = [0.1, 0.5, 5]
-
     return{"batch_size" : batches, "optimizer" : optimizers, "drop" : dropout}
 
 hyperparameters = create_hyperparameter()
@@ -61,11 +56,11 @@ from tensorflow.keras.wrappers.scikit_learn import KerasClassifier #keras를 skl
 model = KerasClassifier(build_fn=build_model, verbose=1) #케라스 모델을 맵핑
 
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
-search = GridSearchCV(model, hyperparameters, cv=3)
-# search = RandomizedSearchCV(model, hyperparameters, cv=3)
+# search = GridSearchCV(model, hyperparameters, cv=3)
+search = RandomizedSearchCV(model, hyperparameters, cv=3)
 
 search.fit(x_train, y_train, verbose=1)
 
-# print(search.best_params_)
+print(search.best_params_)
 acc = search.score(x_test, y_test)
 print("acc : ", acc)

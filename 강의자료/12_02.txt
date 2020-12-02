@@ -8,8 +8,16 @@ ex) 가중치가 이상해질거같을때 제한을 주어 이상해지지 않�
 
 3.BatchNomalization = 일반화(정규화라고 불릴때도 있음)
 한 layer에서 다음 layer로 넘어갈때 노드에서 연산된 값을 정규화 시켜줌
-0~1 사이의 값으로 scale 기능도 있고 parameter값에 영향을 크게 안받아서
+batchnomalization에서 0~1사이로 스케일이 아니라 평균과 분산을 0과 1로 정규화, parameter값에 영향을 크게 안받아서
 learning rate값을 높게 해도 잘 받아줌 -> 학습속도가 빨라짐
+-> activation 쓰기전에 사용하는것이 좋다!
+-> Dropout과 같이 쓸 필요는 없다 - 어느정도 조절을 BatchNomalization이 해주기때문
+
+layer 에서 activation을 쓰지 않으면 activation은 linear로 디폴트값이 적용된다
+따지고 보면 activation 적용후에 BatchNomalization을 적용하는 것이 되는데
+다행이도 linear는 값을 그대로 전달해주기때문에 적용이 되는 것처럼 보이는 형태가 된다
+결과적으로는 BatchNomalization이 적용된후 activation을 적용하면 된다.
+
 
 Regularization
 kernal_regularizer : 레이어의 커널에 페널티를 적용하는 정규화 -> weight를 제한하겠다 (가중치 제한)
@@ -25,3 +33,5 @@ L2 regularization(=weight decay) : 가중치의 제곱에 비례하는 비용이
 activation은 모든연산에 마지막에 처리한다!
 처음에 input으로 들어온다음에 레귤라이저 적용후 액티베이션 적용
 
+#면접문제
+Gradiant vanishing과 폭발에대해서 설명해주세요

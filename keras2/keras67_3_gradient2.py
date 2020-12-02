@@ -22,3 +22,4 @@ for i in range(MaxIter):
     x0 = x1
 
     print("{:02d}\t{:6.5f}\t{:6.5f}".format(i+1, x0, f(x0)))
+

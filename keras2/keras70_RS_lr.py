@@ -1,7 +1,6 @@
 # 66_1 카피
 # lr 넣기
 
-
 import numpy as np
 import matplotlib.pyplot as plt
 from tensorflow.keras.models import Sequential, Model
