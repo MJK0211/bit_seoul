@@ -8,6 +8,7 @@ df = pd.read_csv('./project/data/csv/최저임금.csv',
                   sep=',') 
 
 df = df.sort_values(['연도'], ascending=['True'])
+df = df.drop(['연도'], axis=1)
 
 df = df.values
 print(df)

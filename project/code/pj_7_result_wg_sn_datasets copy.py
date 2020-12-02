@@ -30,5 +30,9 @@ for i in range(len(wg)):
 print(wage) #[4320. 4320. 4320. ... 8590. 8590. 8590.]
 print(snack)
 
+
+'''
 np.save('./project/data/npy/wage_result.npy', arr=wage)
 np.save('./project/data/npy/snack_result.npy', arr=snack)
+np.save('./project/data/npy/count_list.npy', arr=count_list)
+'''
