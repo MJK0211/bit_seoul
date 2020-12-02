@@ -1,0 +1,27 @@
+1.initializer = 초기화
+연산을 시작할때 가중치 또는 bias 초기값을 설정
+
+2.regularizer = 정규화
+연산하면서 가중치같은걸 layer 마다 업데이트 하는데 
+그때마다 나의 목표에 맞춰서 연산할 가중치 또는 bias에 제한을 줌 
+ex) 가중치가 이상해질거같을때 제한을 주어 이상해지지 않게해줌
+
+3.BatchNomalization = 일반화(정규화라고 불릴때도 있음)
+한 layer에서 다음 layer로 넘어갈때 노드에서 연산된 값을 정규화 시켜줌
+0~1 사이의 값으로 scale 기능도 있고 parameter값에 영향을 크게 안받아서
+learning rate값을 높게 해도 잘 받아줌 -> 학습속도가 빨라짐
+
+Regularization
+kernal_regularizer : 레이어의 커널에 페널티를 적용하는 정규화 -> weight를 제한하겠다 (가중치 제한)
+bias_regularizer : 레이어 바이어스에 페널티를 적용하는 레귤레이터 -> 바이어스를 제한하겠다
+activity_regularizer : 레이어 출력에 페널티를 적용하는 레귤레이터
+
+L1 regularization : 가중치의 절댓값에 비례하는 비용이 추가됨(가중치의 L1 norm) -> 음수문제가 있기때문에 절댓값 
+-> 계산 loss = l1 * reduce_sum(abs(x))  default = 0.0.1
+
+L2 regularization(=weight decay) : 가중치의 제곱에 비례하는 비용이 추가됨(가중치의 L2 norm) 
+-> loss = l2 * reduce_sum(square(x)) default = 0.0.1
+
+activation은 모든연산에 마지막에 처리한다!
+처음에 input으로 들어온다음에 레귤라이저 적용후 액티베이션 적용
+

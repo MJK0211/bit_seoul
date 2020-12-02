@@ -70,8 +70,8 @@ from tensorflow.keras.wrappers.scikit_learn import KerasClassifier #keras를 skl
 model = KerasClassifier(build_fn=build_model, verbose=1) #케라스 모델을 맵핑
 
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
-search = GridSearchCV(model, hyperparameters, cv=3)
-# search = RandomizedSearchCV(model, hyperparameters, cv=3)
+# search = GridSearchCV(model, hyperparameters, cv=3)
+search = RandomizedSearchCV(model, hyperparameters, cv=3)
 
 search.fit(x_train, y_train, verbose=1)
 
