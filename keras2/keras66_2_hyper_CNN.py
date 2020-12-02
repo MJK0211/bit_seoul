@@ -31,13 +31,19 @@ x_predict = x_predict.reshape(10,28,28,1).astype('float32')/255
 #2. 모델
 def build_model(drop=0.5, optimizer='adam'):
     inputs = Input(shape=(28,28,1), name='input')
-    x = Conv2D(20, kernel_size=(2,2), padding='same')(inputs)
+    x = Conv2D(10, kernel_size=(2,2), padding='same')(inputs)
     x = Dropout(drop)(x)
-    x = Conv2D(10, kernel_size=(2,2), padding='same')(x)  
+    x = Conv2D(20, kernel_size=(2,2), padding='valid')(x)  
+    x = Dropout(drop)(x)
+    x = Conv2D(30, kernel_size=(3,3))(x)  
+    x = Dropout(drop)(x)
+    x = Conv2D(40, kernel_size=(2,2), strides=2)(x)  
     x = Dropout(drop)(x)
     x = MaxPooling2D()(x)
     x = Dropout(drop)(x)
     x = Flatten()(x)
+    x = Dropout(drop)(x)
+    x = Dense(100, activation='relu')(x)
     outputs = Dense(10, activation='softmax', name='outputs')(x)
     model = Model(inputs=inputs, outputs=outputs)
     model.compile(optimizer=optimizer, metrics=['acc'], loss='categorical_crossentropy')
@@ -64,3 +70,7 @@ search.fit(x_train, y_train, verbose=1)
 print(search.best_params_)
 acc = search.score(x_test, y_test)
 print("acc : ", acc)
+
+# {'optimizer': 'rmsprop', 'drop': 0.1, 'batch_size': 20}
+# 500/500 [==============================] - 1s 1ms/step - loss: 0.0551 - acc: 0.9809
+# acc :  0.980880856513977
