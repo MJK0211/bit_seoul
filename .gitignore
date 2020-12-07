@@ -21,6 +21,11 @@
 *.json
 *.pb
 *.index
+*.jpg
+*.png
+*.avi
+*.mp4
+*.xml
 #zip파일
 *.dmg
 *.iso

@@ -26,12 +26,18 @@ def split_xy5(dataset, time_steps, y_column):
             
     return np.array(x), np.array(y), np.array(x_predict)
 x_samsung, y_samsung, x_samsung_predict = split_xy5(samsung, 3, 1)
+
 x_bit, y_bit, x_bit_predict = split_xy5(bit, 3, 1)
 x_kosdaq, y_kosdaq, x_kosdaq_predict = split_xy5(kosdaq, 3, 1)
 x_gold, y_gold, x_gold_predict = split_xy5(gold, 3, 1)
 
 from sklearn.model_selection import train_test_split
 x_samsung_train, x_samsung_test, y_samsung_train, y_samsung_test, = train_test_split(x_samsung, y_samsung, train_size=0.8, random_state=42) 
+
+# print(x_samsung_train.shape) #(497, 3, 6)
+# print(y_samsung_train.shape) #(497, 1)
+
+'''
 x_bit_train, x_bit_test, y_bit_train, y_bit_test, = train_test_split(x_bit, y_bit, train_size=0.8, random_state=42) 
 x_kosdaq_train, x_kosdaq_test, y_kosdaq_train, y_kosdaq_test, = train_test_split(x_kosdaq, y_kosdaq, train_size=0.8, random_state=42) 
 x_gold_train, x_gold_test, y_gold_train, y_gold_test, = train_test_split(x_gold, y_gold, train_size=0.8, random_state=42) 
@@ -172,3 +178,5 @@ print("11/23 삼성 시가 : ", y_pred)
 # loss :  3545515.5
 # mae :  1429.9776611328125
 # 11/23 삼성 시가 :  [[64199.68]]
+
+'''
