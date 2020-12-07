@@ -16,13 +16,13 @@ name = soup.find("div", class_="list_image_info _content").find_all("li")
 
 find_namelist = list()
 for item in name:
-    find_name = item.find(class_='item').find_all('a')[2].get_text()
-    find_namelist.append(find_name)
+    find_name = item.find_all(class_="_text")[1] #주인공 이름
+    find_namelist.append(find_name.get_text())
 print(find_namelist)
 
 for i in range(4):
     base_imgUrl = 'https://search.naver.com/search.naver?where=image&sm=tab_jum&query='    
-    crawl_num = 5
+    crawl_num = 500
     url_img = base_imgUrl + quote_plus(find_namelist[i])
     print(url_img+" : "+find_namelist[i])    
     html_img = urlopen(url_img)
@@ -35,7 +35,8 @@ for i in range(4):
     n = 1    
     for j in img:
         # print(n)              
-        imgUrl = j['data-source']          
+        imgUrl = j['data-source']       
+        print(imgUrl)   
         urlretrieve(imgUrl, path + find_namelist[i] + str(n)+'.jpg')
         n += 1
         if n > crawl_num:           

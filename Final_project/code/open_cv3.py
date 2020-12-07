@@ -3,7 +3,7 @@
 import sys, cv2 
 import matplotlib.pyplot as plt
 
-src = cv2.imread('./Final_project/photo/cat.jpg')
+src = cv2.imread('./Final_project/photo/sooji.jpg')
 
 src = cv2.resize(src, (0,0), fx=0.5, fy=0.5)
 src_RGB = cv2.cvtColor(src, cv2.COLOR_BGR2RGB)
