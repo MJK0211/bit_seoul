@@ -38,7 +38,7 @@ parameters = [{"n_estimators":[100, 200, 300], "learning_rate":[0.1, 0.3, 0.001,
                "max_depth":[4, 5, 6], "colsample_bytree":[0.6, 0.9, 1], "colsample_bylevel":[0.6, 0.7, 0.9]}
 ]
 
-model = GridSearchCV(XGBRegressor(n_jobs=-1), parameters, cv=kfold, verbose=True)
+model = RandomizedSearchCV(XGBRegressor(n_jobs=-1), parameters, cv=kfold, verbose=True)
 
 #3. 훈련
 model.fit(x_train, y_train)
@@ -49,6 +49,7 @@ print("score : ", score)
 model_best_estimator_ = model.best_estimator_             #최적의 모델 저장
 print("최적의 매개변수 : ", model_best_estimator_) 
 
+# model.load_model('./model/xgb/select.xgb.model')
 # print(model.best_estimator_.feature_importances_)
 
 # score :  0.9475222198375111
@@ -95,7 +96,7 @@ for thresh in np.sort(thresholds): #데쿠사용 이유는 for문안에서 np.so
 # Thresh=0.354, n=1, R2: 44.98%, Index: 12
 
 print(thresholds[5:])
-'''
+
 print(type(find_index)) #<class 'collections.deque'>
 find_index = np.asarray(find_index) #데쿠 타입 데이터를 numpy로 변환
 print(find_index)
@@ -162,4 +163,3 @@ print("score2 : ", score2)
 
 # 결과값
 # score2 :  0.9321348631150079
-'''
