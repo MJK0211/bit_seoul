@@ -65,6 +65,7 @@ hyperparameters = create_hyperparameter(lr)
 
 print(hyperparameters)
 # print(optimizers)
+
 '''
 from tensorflow.keras.wrappers.scikit_learn import KerasClassifier #keras를 sklearn으로 쌓겠다. 
 model = KerasClassifier(build_fn=build_model, verbose=1) #케라스 모델을 맵핑

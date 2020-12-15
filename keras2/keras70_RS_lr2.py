@@ -50,7 +50,6 @@ def build_model(drop=0.5, optimizer='adam', lr=0.0001):
 from tensorflow.keras.optimizers import Adam, Adadelta, Adamax, Adagrad
 from tensorflow.keras.optimizers import RMSprop, SGD, Nadam
 
-
 def create_hyperparameter(lr):
     # batches = [10, 20, 30, 40, 50]
     optimizers = [Adam, Adadelta, RMSprop]

@@ -34,4 +34,4 @@ activation은 모든연산에 마지막에 처리한다!
 처음에 input으로 들어온다음에 레귤라이저 적용후 액티베이션 적용
 
 #면접문제
-Gradiant vanishing과 폭발에대해서 설명해주세요
+Gradiant vanishing과 폭발에대해서 설명해주세요!
