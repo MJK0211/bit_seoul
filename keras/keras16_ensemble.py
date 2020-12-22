@@ -15,6 +15,7 @@ x2 = np.transpose(x2)
 y1 = np.transpose(y1)
 y2 = np.transpose(y2)
 
+'''
 from sklearn.model_selection import train_test_split
 x1_train, x1_test, x2_train, x2_test = train_test_split(x1, x2, train_size=0.7)
 y1_train, y1_test, y2_train, y2_test = train_test_split(y1, y2, train_size=0.7)
@@ -78,3 +79,4 @@ print(result)
 
 # 결과값 
 # [168.80563354492188, 72.82401275634766, 95.98162078857422, 72.82401275634766, 95.98162078857422]
+'''
