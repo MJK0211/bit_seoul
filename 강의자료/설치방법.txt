@@ -22,6 +22,16 @@ cunda 설치 사용자정의 첫번재꺼 (+)클릭 -> Visualstudio 관련 체�
 
 cundnn 압축해제 후 c - Programfiles - NVIDIA GPU Computing Toolkit-cunda-10.1에 덮어쓰기
 
+vscode
+확장 -> 파이썬, 파이썬vscode ,파이썬 extention pack,파이썬 extended
+텐서플로우 설치
+
+python -> import tensorflow -> dll 없다 -> visualstudio 2017 다운
+https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads
+pip install keras
+python import tensorflow as tf -> impiort keras
+
+
 ​cmd - conda env list 
 -> 콘다 가상환경 확인법
 
@@ -33,3 +43,4 @@ cundnn 압축해제 후 c - Programfiles - NVIDIA GPU Computing Toolkit-cunda-10
 python 실행 - import tensorflow as tf
 -> ImportError: DLL load failed while importing _pywrap_tensorflow_internal: 지정된 모듈을 찾을 수 없습니다.
 -> vc_redist.x64 설치로 해결
+
